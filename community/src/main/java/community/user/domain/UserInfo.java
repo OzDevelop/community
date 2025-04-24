@@ -1,5 +1,7 @@
 package community.user.domain;
 
+import lombok.Getter;
+
 public class UserInfo {
     private final String name;
     private final String profileImageUrl;

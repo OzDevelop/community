@@ -1,5 +1,8 @@
 package community.user.domain;
 
+import lombok.Getter;
+
+@Getter
 public class UserRelationCounter {
     private int count;
 

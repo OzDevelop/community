@@ -1,15 +1,16 @@
 package community.user.domain;
 
 import java.util.Objects;
+import lombok.Getter;
 
-
+@Getter
 public class User {
     private final Long id;
     private final UserInfo userInfo;
     private final UserRelationCounter followingCount;
     private final UserRelationCounter followerCount;
 
-    public User(Long id, String username, UserInfo userInfo) {
+    public User(Long id, UserInfo userInfo) {
         this.id = id;
         this.userInfo = userInfo;
         this.followingCount = new UserRelationCounter();
@@ -32,7 +33,7 @@ public class User {
         targetUser.followerCount.decrease();
     }
 
-    
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
