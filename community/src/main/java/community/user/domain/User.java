@@ -1,6 +1,7 @@
-package user.domain;
+package community.user.domain;
 
 import java.util.Objects;
+
 
 public class User {
     private final Long id;
