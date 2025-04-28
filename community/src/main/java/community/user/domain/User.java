@@ -23,7 +23,7 @@ public class User {
             throw new IllegalArgumentException("Cannot follow self");
         }
         followingCount.increase();
-        targetUser.followerCount.increase();
+        targetUser.followerCountIncrease();
     }
 
     public void unfollow(User targetUser) {
@@ -31,9 +31,16 @@ public class User {
             throw new IllegalArgumentException("Cannot unfollow self");
         }
         followingCount.decrease();
-        targetUser.followerCount.decrease();
+        targetUser.followerCountDecrease();
     }
 
+    private void followerCountIncrease() {
+        followerCount.increase();
+    }
+
+    private void followerCountDecrease() {
+        followerCount.decrease();
+    }
 
     @Override
     public boolean equals(Object o) {
