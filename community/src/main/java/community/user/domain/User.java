@@ -1,18 +1,38 @@
 package community.user.domain;
 
 import java.util.Objects;
+import lombok.Getter;
 
-
+@Getter
 public class User {
     private final Long id;
-    private String username;
-    private String profileImageUrl;
+    private final UserInfo userInfo;
+    private final UserRelationCounter followingCount;
+    private final UserRelationCounter followerCount;
 
-    public User(Long id, String username, String profileImageUrl) {
+    public User(Long id, UserInfo userInfo) {
         this.id = id;
-        this.username = username;
-        this.profileImageUrl = profileImageUrl;
+        this.userInfo = userInfo;
+        this.followingCount = new UserRelationCounter();
+        this.followerCount = new UserRelationCounter();
     }
+
+    public void follow(User targetUser) {
+        if(targetUser.equals(this)) {
+            throw new IllegalArgumentException("Cannot follow self");
+        }
+        followingCount.increase();
+        targetUser.followerCount.increase();
+    }
+
+    public void unfollow(User targetUser) {
+        if(targetUser.equals(this)) {
+            throw new IllegalArgumentException("Cannot unfollow self");
+        }
+        followingCount.decrease();
+        targetUser.followerCount.decrease();
+    }
+
 
     @Override
     public boolean equals(Object o) {
