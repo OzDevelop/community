@@ -22,7 +22,7 @@ public class PostService {
     }
 
     public Post CreatePost(CreatePostRequestDto dto) {
-        User author = UserService.getUser(dto.userId());
+        User author = userService.getUser(dto.userId());
 
         Post post = Post.createPost(null, author, dto.content(), dto.state());
 
@@ -31,7 +31,7 @@ public class PostService {
 
     public Post UpdatePost(Long postId, UpdatePostRequestDto dto) {
         Post post = postRepository.findById(postId);
-        User user = UserService.getUser(dto.userId());
+        User user = userService.getUser(dto.userId());
 
         post.updatePost(user, dto.content(), dto.state());
 
@@ -40,7 +40,7 @@ public class PostService {
 
     public void likePost(LikeRequestDto dto) {
         Post post = postRepository.findById(dto.postId());
-        User user = UserService.getUser(dto.userId());
+        User user = userService.getUser(dto.userId());
 
         if(likeRepository.checkLike(user, post)) {
             return;
@@ -52,7 +52,7 @@ public class PostService {
 
     public void unlikePost(LikeRequestDto dto) {
         Post post = postRepository.findById(dto.postId());
-        User user = UserService.getUser(dto.userId());
+        User user = userService.getUser(dto.userId());
 
         if(likeRepository.checkLike(user, post)) {
             post.unlike();
