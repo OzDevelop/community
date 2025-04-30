@@ -1,5 +1,6 @@
 package community.user.domain;
 
+import community.common.IntegerRelationCounter;
 import java.util.Objects;
 import lombok.Getter;
 
@@ -7,14 +8,14 @@ import lombok.Getter;
 public class User {
     private final Long id;
     private final UserInfo userInfo;
-    private final UserRelationCounter followingCount;
-    private final UserRelationCounter followerCount;
+    private final IntegerRelationCounter followingCount;
+    private final IntegerRelationCounter followerCount;
 
     public User(Long id, UserInfo userInfo) {
         this.id = id;
         this.userInfo = userInfo;
-        this.followingCount = new UserRelationCounter();
-        this.followerCount = new UserRelationCounter();
+        this.followingCount = new IntegerRelationCounter();
+        this.followerCount = new IntegerRelationCounter();
     }
 
     public void follow(User targetUser) {
@@ -22,7 +23,7 @@ public class User {
             throw new IllegalArgumentException("Cannot follow self");
         }
         followingCount.increase();
-        targetUser.followerCount.increase();
+        targetUser.followerCountIncrease();
     }
 
     public void unfollow(User targetUser) {
@@ -30,9 +31,16 @@ public class User {
             throw new IllegalArgumentException("Cannot unfollow self");
         }
         followingCount.decrease();
-        targetUser.followerCount.decrease();
+        targetUser.followerCountDecrease();
     }
 
+    private void followerCountIncrease() {
+        followerCount.increase();
+    }
+
+    private void followerCountDecrease() {
+        followerCount.decrease();
+    }
 
     @Override
     public boolean equals(Object o) {

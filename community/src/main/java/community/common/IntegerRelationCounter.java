@@ -1,12 +1,12 @@
-package community.user.domain;
+package community.common;
 
 import lombok.Getter;
 
 @Getter
-public class UserRelationCounter {
+public class IntegerRelationCounter {
     private int count;
 
-    public UserRelationCounter() {
+    public IntegerRelationCounter() {
         this.count = 0;
     }
 
