@@ -3,8 +3,11 @@ package community.post.domain;
 import community.post.domain.content.PostContent;
 import community.post.domain.content.PostPublicationState;
 import community.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-
+@Getter
+@AllArgsConstructor
 public class Post {
     private final Long id;
     private final User author;
@@ -18,17 +21,24 @@ public class Post {
         this.state = PostPublicationState.PUBLIC;
     }
 
+    public static Post createPost(Long postId, User author, String content, PostPublicationState state) {
+        return new Post(postId, author, new PostContent(content), state);
+    }
+
+
+
     // 좋아요
     public void like(User user) {
         if(this.author.equals(user)) {
             throw new IllegalArgumentException();
         }
+        //TODO - UserRelationCOunter를 Common으로 Refactoring 후 작성
 
     }
 
     // 싫어요
-    public void unlike(User user) {
-
+    public void unlike() {
+        //TODO - UserRelationCOunter를 Common으로 Refactoring 후 작성
     }
 
     // Post 업데이트
