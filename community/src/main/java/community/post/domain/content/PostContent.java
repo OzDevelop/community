@@ -7,7 +7,7 @@ public class PostContent {
     private static final int MAX_LENGTH = 500;
     private static final int MIN_LENGTH = 5;
 
-    protected PostContent(String content) {
+    public PostContent(String content) {
         checkText(content);
         this.contentText = content;
         this.datetimeInfo = new DatetimeInfo();
