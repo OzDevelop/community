@@ -42,6 +42,10 @@ public class User {
         followerCount.decrease();
     }
 
+    public UserInfo getInfo() {
+        return userInfo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
