@@ -4,6 +4,7 @@ import community.post.application.dto.CreateCommentRequestDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdateCommentRequestDto;
 import community.post.application.interfaces.CommentRepository;
+import community.post.application.interfaces.LikeRepository;
 import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
@@ -14,11 +15,14 @@ public class CommentService {
     private final UserService userService;
     private final PostService postService;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
-    public CommentService(UserService userService, PostService postService, CommentRepository commentRepository) {
+    public CommentService(UserService userService, PostService postService, CommentRepository commentRepository,
+                          LikeRepository likeRepository) {
         this.userService = userService;
         this.postService = postService;
         this.commentRepository = commentRepository;
+        this.likeRepository = likeRepository;
     }
 
     public Comment createComment(CreateCommentRequestDto dto) {
@@ -42,19 +46,21 @@ public class CommentService {
         Comment comment = commentRepository.findById(dto.targetId());
         User user = userService.getUser(dto.userId());
 
-        //TODO - like가 존재하는지 체크
+        if(likeRepository.checkLike(comment, user)) {
+            return;
+        }
 
         comment.like(user);
-        //TODO - likeRepository
+        likeRepository.like(comment, user);
     }
 
     public void unlikeComment(LikeRequestDto dto) {
         Comment comment = commentRepository.findById(dto.targetId());
         User user = userService.getUser(dto.userId());
 
-        //TODO - like가 존재하는지 체크
-
-        comment.unlike();
-        //TODO - likeRepository
+        if(likeRepository.checkLike(comment, user)) {
+            comment.unlike();
+            likeRepository.unlike(comment, user);
+        }
     }
 }
