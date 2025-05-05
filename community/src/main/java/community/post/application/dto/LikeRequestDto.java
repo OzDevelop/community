@@ -1,4 +1,4 @@
 package community.post.application.dto;
 
-public record LikeRequestDto(Long postId, Long userId) {
+public record LikeRequestDto(Long targetId, Long userId) {
 }
