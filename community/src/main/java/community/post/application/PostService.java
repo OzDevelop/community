@@ -39,7 +39,7 @@ public class PostService {
     }
 
     public void likePost(LikeRequestDto dto) {
-        Post post = postRepository.findById(dto.postId());
+        Post post = postRepository.findById(dto.targetId());
         User user = userService.getUser(dto.userId());
 
         if(likeRepository.checkLike(user, post)) {
@@ -51,12 +51,16 @@ public class PostService {
 
 
     public void unlikePost(LikeRequestDto dto) {
-        Post post = postRepository.findById(dto.postId());
+        Post post = postRepository.findById(dto.targetId());
         User user = userService.getUser(dto.userId());
 
         if(likeRepository.checkLike(user, post)) {
             post.unlike();
             likeRepository.unlike(post, user);
         }
+    }
+
+    public Post getPost(Long id) {
+        return postRepository.findById(id);
     }
 }

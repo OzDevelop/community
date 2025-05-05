@@ -1,16 +1,15 @@
 package community.post.domain.content;
 
-public class PostContent {
-    protected String contentText;
-    protected final DatetimeInfo datetimeInfo;
+import community.post.domain.common.DatetimeInfo;
+
+public class PostContent extends Content {
+
 
     private static final int MAX_LENGTH = 500;
     private static final int MIN_LENGTH = 5;
 
     public PostContent(String content) {
-        checkText(content);
-        this.contentText = content;
-        this.datetimeInfo = new DatetimeInfo();
+        super(content);
     }
 
     public String getContentText() {
@@ -24,7 +23,7 @@ public class PostContent {
     }
 
     //🦊 contextText 검증
-    private void checkText(String contentText) {
+    protected void checkText(String contentText) {
         if (contentText == null || contentText.isEmpty())
             throw new IllegalArgumentException();
         if (contentText.length() > MAX_LENGTH)

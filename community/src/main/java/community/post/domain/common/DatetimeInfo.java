@@ -1,4 +1,4 @@
-package community.post.domain.content;
+package community.post.domain.common;
 
 import java.time.LocalDateTime;
 
