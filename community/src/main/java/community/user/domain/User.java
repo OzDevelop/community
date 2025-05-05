@@ -46,6 +46,14 @@ public class User {
         return userInfo;
     }
 
+    public int followerCount() {
+        return followerCount.getCount();
+    }
+
+    public int followingCount() {
+        return followingCount.getCount();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
