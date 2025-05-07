@@ -6,7 +6,9 @@ import community.post.domain.Post;
 import community.post.domain.content.CommentContent;
 import community.post.domain.content.Content;
 import community.user.domain.User;
+import lombok.Getter;
 
+@Getter
 public class Comment {
 
     private final Long id;
