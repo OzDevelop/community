@@ -2,6 +2,7 @@ package community.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.Fake.FakeObjectFactory;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.application.interfaces.UserRepository;
 import community.user.application.repository.FakeUserRepository;
@@ -11,8 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class UserServiceTest {
     // fake 객체를 이용한 테스트 진행.
-    private final UserRepository userRepository = new FakeUserRepository();
-    private final UserService userService = new UserService(userRepository);
+    private final UserService userService = FakeObjectFactory.getUserService();
 
 
     @Test
