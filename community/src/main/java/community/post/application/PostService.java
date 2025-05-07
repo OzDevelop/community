@@ -21,7 +21,7 @@ public class PostService {
         this.likeRepository = likeRepository;
     }
 
-    public Post CreatePost(CreatePostRequestDto dto) {
+    public Post createPost(CreatePostRequestDto dto) {
         User author = userService.getUser(dto.userId());
 
         Post post = Post.createPost(null, author, dto.content(), dto.state());
@@ -29,7 +29,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post UpdatePost(Long postId, UpdatePostRequestDto dto) {
+    public Post updatePost(Long postId, UpdatePostRequestDto dto) {
         Post post = postRepository.findById(postId);
         User user = userService.getUser(dto.userId());
 
@@ -47,6 +47,7 @@ public class PostService {
         }
 
         post.like(user);
+        likeRepository.like(post, user);
     }
 
 
