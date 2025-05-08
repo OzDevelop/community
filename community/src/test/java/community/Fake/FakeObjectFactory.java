@@ -38,4 +38,12 @@ public class FakeObjectFactory {
     public static UserRelationService getUserRelationService() {
         return userRelationRepository;
     }
+
+    public static PostService getPostService() {
+        return postService;
+    }
+
+    public static CommentService getCommentService() {
+        return commentService;
+    }
 }
