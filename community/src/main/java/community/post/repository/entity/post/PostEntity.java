@@ -54,7 +54,7 @@ public class PostEntity {
     public Post toPost() {
         return Post.builder()
                 .id(id)
-
+                .author(author.toUser())
                 .content(new PostContent(content))
                 .state(state)
                 .likeCount(new IntegerRelationCounter(likeCount))
