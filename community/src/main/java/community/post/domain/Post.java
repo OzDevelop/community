@@ -6,11 +6,13 @@ import community.post.domain.content.PostContent;
 import community.post.domain.content.PostPublicationState;
 import community.user.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class Post {
     private final Long id;
     private final User author;
@@ -72,4 +74,11 @@ public class Post {
         return likeCount.getCount();
     }
 
+    public String getContent() {
+        return content.getContentText();
+    }
+
+    public Content getContentObject() {
+        return content;
+    }
 }

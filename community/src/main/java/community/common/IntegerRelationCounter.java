@@ -10,6 +10,10 @@ public class IntegerRelationCounter {
         this.count = 0;
     }
 
+    public IntegerRelationCounter(int count) {
+        this.count = count;
+    }
+
     public void increase() {
         this.count++;
     }
