@@ -7,7 +7,7 @@ import community.post.application.interfaces.LikeRepository;
 import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import community.user.domain.User;
-import community.user.service.UserService;
+import community.user.application.service.UserService;
 
 public class PostService {
 

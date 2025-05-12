@@ -1,4 +1,4 @@
-package community.user.service;
+package community.user.application.service;
 
 import community.user.application.dto.FollowUserRequestDto;
 import community.user.application.interfaces.UserRelationRepository;
