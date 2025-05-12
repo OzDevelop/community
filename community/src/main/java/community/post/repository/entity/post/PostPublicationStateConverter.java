@@ -1,4 +1,4 @@
-package community.post.repository.entity;
+package community.post.repository.entity.post;
 
 import community.post.domain.content.PostPublicationState;
 import jakarta.persistence.AttributeConverter;

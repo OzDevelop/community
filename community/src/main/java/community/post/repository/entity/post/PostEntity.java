@@ -1,18 +1,13 @@
-package community.post.repository.entity;
+package community.post.repository.entity.post;
 
 import community.common.IntegerRelationCounter;
 import community.post.domain.Post;
 import community.post.domain.content.PostContent;
 import community.post.domain.content.PostPublicationState;
-import jakarta.persistence.Column;
-import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
