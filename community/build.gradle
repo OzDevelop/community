@@ -4,7 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'fastcampus.ecommerce'
+group = 'community'
 version = '1.0-SNAPSHOT'
 
 java {
@@ -28,7 +28,16 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
+    // Querydsl 추가
+    // query dsl 버전 명시해야 jakarta사용 (javax X)
+    implementation 'com.querydsl:querydsl-apt:5.0.0'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'com.querydsl:querydsl-core:5.0.0'
 
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -37,4 +46,23 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+
+///// Querydsl 빌드 옵션 (옵셔널)
+def generated = 'src/main/generated'
+
+///// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+///// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+///// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+    delete file(generated)
 }
