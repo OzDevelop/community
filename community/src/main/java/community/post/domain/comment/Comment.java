@@ -6,8 +6,10 @@ import community.post.domain.Post;
 import community.post.domain.content.CommentContent;
 import community.post.domain.content.Content;
 import community.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 public class Comment {
 

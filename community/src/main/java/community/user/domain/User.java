@@ -2,8 +2,10 @@ package community.user.domain;
 
 import community.common.IntegerRelationCounter;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 public class User {
     private final Long id;
@@ -52,6 +54,14 @@ public class User {
 
     public int followingCount() {
         return followingCount.getCount();
+    }
+
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
+    }
+
+    public String getName() {
+        return userInfo.getName();
     }
 
     @Override
