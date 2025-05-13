@@ -1,6 +1,7 @@
 package community.user.application.service;
 
 import community.user.application.dto.CreateUserRequestDto;
+import community.user.application.dto.GetUserResponseDto;
 import community.user.application.interfaces.UserRepository;
 import community.user.domain.User;
 import community.user.domain.UserInfo;
@@ -28,5 +29,12 @@ public class UserService {
     public User getUser(Long id) {
         return userRepository.findById(id);
     }
+
+    public GetUserResponseDto getUserProfile(Long id) {
+        User user = getUser(id);
+
+        return new GetUserResponseDto(user);
+    }
+
 }
 
