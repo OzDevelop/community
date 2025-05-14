@@ -2,9 +2,13 @@ package community.user.domain;
 
 import community.common.IntegerRelationCounter;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
+@AllArgsConstructor
 public class User {
     private final Long id;
     private final UserInfo userInfo;
@@ -33,6 +37,15 @@ public class User {
         followingCount.decrease();
         targetUser.followerCountDecrease();
     }
+
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
+    }
+
+    public String getName() {
+        return userInfo.getName();
+    }
+
 
     private void followerCountIncrease() {
         followerCount.increase();

@@ -8,7 +8,7 @@ import community.post.application.interfaces.LikeRepository;
 import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
-import community.user.service.UserService;
+import community.user.application.service.UserService;
 
 public class CommentService {
 
