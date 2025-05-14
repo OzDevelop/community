@@ -8,7 +8,9 @@ import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService {
 
     private final UserService userService;
