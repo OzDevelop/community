@@ -45,7 +45,7 @@ public class PostEntity {
 
     public PostEntity(Post post) {
         this.id = post.getId();
-
+        this.author = new UserEntity(post.getAuthor());
         this.content = post.getContent();
         this.state = post.getState();
         this.likeCount = post.getLikeCount();

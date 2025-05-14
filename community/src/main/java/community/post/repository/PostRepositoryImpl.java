@@ -18,16 +18,17 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     @Transactional
     public Post save(Post post) {
-        if (post.getId() != null) {
-            //더티체킹을 이용한 업데이트
-            PostEntity postEntity = jpaPostRepository.findById(post.getId())
-                    .orElseThrow(() -> new RuntimeException("Post not found"));
+        if (post.getAuthor() == null) {
+            throw new IllegalArgumentException("Author cannot be null");
+        }
 
+        PostEntity postEntity = new PostEntity(post);
+        if (postEntity.getId() != null) {
+            //더티체킹을 이용한 업데이트
             postEntity.update(post.getContent(), post.getState());
 
             return postEntity.toPost();
         } else {
-            PostEntity postEntity = new PostEntity(post);
             PostEntity saved = jpaPostRepository.save(postEntity);
             return saved.toPost();
         }
