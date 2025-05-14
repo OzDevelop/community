@@ -1,6 +1,9 @@
 package community.user.repository.entity;
 
+import community.common.IntegerRelationCounter;
 import community.common.repository.entity.TimeBaseEntity;
+import community.user.domain.User;
+import community.user.domain.UserInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
