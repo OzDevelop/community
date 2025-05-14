@@ -3,25 +3,37 @@ package community.post.repository;
 import community.post.application.interfaces.LikeRepository;
 import community.post.domain.Post;
 import community.post.domain.comment.Comment;
+import community.post.repository.entity.like.LikeEntity;
+import community.post.repository.entity.like.LikeIdEntity;
+import community.post.repository.entity.post.PostEntity;
 import community.post.repository.jpa.JpaLikeRepository;
+import community.post.repository.jpa.JpaPostRepository;
 import community.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
 public class likeRepositoryImpl implements LikeRepository {
 
     private final JpaLikeRepository jpaLikeRepository;
+    private final JpaPostRepository jpaPostRepository;
 
     @Override
     public boolean checkLike(User user, Post post) {
-        return false;
+        return jpaLikeRepository.existsByIdUserIdAndIdTargetIdAndIdTargetType(
+                user.getId(),
+                post.getId(),
+                "POST"
+        );
     }
 
     @Override
     public void like(Post post, User user) {
+        LikeEntity likeEntity = new LikeEntity(post, user);
 
+        jpaLikeRepository.save(likeEntity);
     }
 
     @Override

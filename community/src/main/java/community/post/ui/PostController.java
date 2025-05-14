@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
     private final PostService postService;
 
+    // 동작 확인 O
     @PostMapping
     public Response<Long> createPost(@RequestBody CreatePostRequestDto dto) {
         Post post = postService.createPost(dto);
@@ -30,6 +31,7 @@ public class PostController {
     //TODO - update, delete, like, unlike
 
     // update
+    // 동작 확인 O
     @PatchMapping("/{postId}")
     public Response<Long> updatePost(@PathVariable(name = "postId") Long postId,
                                      @RequestBody UpdatePostRequestDto dto) {
@@ -39,6 +41,7 @@ public class PostController {
 
 
     // like
+    // 동작 확인 O
     @PostMapping("/like")
     public Response<Void> likePost(@RequestBody LikeRequestDto dto) {
         postService.likePost(dto);
