@@ -3,12 +3,14 @@ package community.user.application.service;
 import community.user.application.dto.FollowUserRequestDto;
 import community.user.application.interfaces.UserRelationRepository;
 import community.user.domain.User;
+import org.springframework.stereotype.Service;
 
 /**
  * UserService, UserRelationService를 분리하여 구현.
  *
  */
 
+@Service
 public class UserRelationService {
     public final UserRelationRepository userRelationRepository;
     public final UserService userService;
