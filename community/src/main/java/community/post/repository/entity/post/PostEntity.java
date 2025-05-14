@@ -61,4 +61,9 @@ public class PostEntity {
                 .build();
 
     }
+
+    public void update(String newContent, PostPublicationState newState) {
+        this.content = newContent;
+        this.state = newState;
+    }
 }
