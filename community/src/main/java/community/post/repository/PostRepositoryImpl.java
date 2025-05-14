@@ -27,6 +27,8 @@ public class PostRepositoryImpl implements PostRepository {
             //더티체킹을 이용한 업데이트
             postEntity.update(post.getContent(), post.getState());
 
+            jpaPostRepository.save(postEntity);
+
             return postEntity.toPost();
         } else {
             PostEntity saved = jpaPostRepository.save(postEntity);
