@@ -38,6 +38,15 @@ public class User {
         targetUser.followerCountDecrease();
     }
 
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
+    }
+
+    public String getName() {
+        return userInfo.getName();
+    }
+
+
     private void followerCountIncrease() {
         followerCount.increase();
     }

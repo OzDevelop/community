@@ -12,8 +12,8 @@ import community.user.application.interfaces.UserRelationRepository;
 import community.user.application.interfaces.UserRepository;
 import community.user.application.repository.FakeUserRelationRepository;
 import community.user.application.repository.FakeUserRepository;
-import community.user.service.UserRelationService;
-import community.user.service.UserService;
+import community.user.application.service.UserRelationService;
+import community.user.application.service.UserService;
 
 public class FakeObjectFactory {
 

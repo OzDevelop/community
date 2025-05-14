@@ -12,7 +12,7 @@ import community.post.domain.comment.Comment;
 import community.post.domain.content.PostPublicationState;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.domain.User;
-import community.user.service.UserService;
+import community.user.application.service.UserService;
 import org.junit.jupiter.api.Test;
 
 class CommentServiceTest {
