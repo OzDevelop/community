@@ -61,6 +61,7 @@ public class PostService {
 
         if(likeRepository.checkLike(user, post)) {
             post.unlike();
+            postRepository.save(post);
             likeRepository.unlike(post, user);
         }
     }

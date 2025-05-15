@@ -49,6 +49,7 @@ public class PostController {
     }
 
     // unlike
+    // 동작 확인 O
     @PostMapping("/unlike")
     public Response<Void> unlikePost(@RequestBody LikeRequestDto dto) {
         postService.unlikePost(dto);
