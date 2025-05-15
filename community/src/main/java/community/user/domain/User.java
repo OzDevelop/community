@@ -38,14 +38,6 @@ public class User {
         targetUser.followerCountDecrease();
     }
 
-    public String getProfileImage() {
-        return userInfo.getProfileImageUrl();
-    }
-
-    public String getName() {
-        return userInfo.getName();
-    }
-
 
     private void followerCountIncrease() {
         followerCount.increase();
@@ -65,6 +57,14 @@ public class User {
 
     public int followingCount() {
         return followingCount.getCount();
+    }
+
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
+    }
+
+    public String getName() {
+        return userInfo.getName();
     }
 
     @Override

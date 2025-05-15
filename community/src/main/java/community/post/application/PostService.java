@@ -8,7 +8,10 @@ import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class PostService {
 
     private final UserService userService;
@@ -47,6 +50,7 @@ public class PostService {
         }
 
         post.like(user);
+        postRepository.save(post);
         likeRepository.like(post, user);
     }
 
@@ -57,6 +61,7 @@ public class PostService {
 
         if(likeRepository.checkLike(user, post)) {
             post.unlike();
+            postRepository.save(post);
             likeRepository.unlike(post, user);
         }
     }
