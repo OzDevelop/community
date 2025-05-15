@@ -10,6 +10,7 @@ import community.user.repository.jpa.JpaUserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
     }
 
     @Override
+    @Transactional
     public void save(User user, User targetUser) {
         UserRelationEntity userRelation = new UserRelationEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.save(userRelation);
@@ -33,6 +35,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
     }
 
     @Override
+    @Transactional
     public void delete(User user, User targetUser) {
         UserRelationIdEntity id = new UserRelationIdEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.deleteById(id);
