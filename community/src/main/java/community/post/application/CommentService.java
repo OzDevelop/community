@@ -9,7 +9,9 @@ import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentService {
 
     private final UserService userService;
@@ -30,6 +32,7 @@ public class CommentService {
         User author = userService.getUser(dto.authorId());
 
         Comment comment = new Comment(null, post, author, dto.content());
+
         return commentRepository.save(comment);
     }
 
@@ -51,6 +54,7 @@ public class CommentService {
         }
 
         comment.like(user);
+        commentRepository.save(comment);
         likeRepository.like(comment, user);
     }
 
@@ -60,6 +64,7 @@ public class CommentService {
 
         if(likeRepository.checkLike(comment, user)) {
             comment.unlike();
+            commentRepository.save(comment);
             likeRepository.unlike(comment, user);
         }
     }

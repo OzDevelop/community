@@ -43,13 +43,18 @@ public class LikeRepositoryImpl implements LikeRepository {
     public boolean checkLike(Comment comment, User user) {
         LikeEntity likeEntity = new LikeEntity(comment, user);
 
-        return jpaLikeRepository.existsById(likeEntity.getId());
+//        return jpaLikeRepository.existsById(likeEntity.getId());
+        return jpaLikeRepository.existsByIdUserIdAndIdTargetIdAndIdTargetType(
+                user.getId(),
+                comment.getId(),
+                "COMMENT"
+        );
     }
 
     @Override
     public void like(Comment comment, User user) {
         LikeEntity likeEntity = new LikeEntity(comment, user);
-
+//        System.out.println("likeEntity, " + likeEntity);
         jpaLikeRepository.save(likeEntity);
 
     }

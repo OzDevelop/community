@@ -3,6 +3,7 @@ package community.post.repository.entity.comment;
 import community.common.IntegerRelationCounter;
 import community.post.domain.comment.Comment;
 import community.post.domain.content.CommentContent;
+import community.post.domain.content.Content;
 import community.post.repository.entity.post.PostEntity;
 import community.user.repository.entity.UserEntity;
 import jakarta.persistence.ConstraintMode;
@@ -57,5 +58,10 @@ public class CommentEntity {
                 .content(new CommentContent(content))
                 .likeCount(new IntegerRelationCounter(likeCount))
                 .build();
+    }
+
+    public void update(String content) {
+        this.content = content;
+
     }
 }
