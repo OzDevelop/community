@@ -2,6 +2,7 @@ package community.post.ui;
 
 import community.common.ui.Response;
 import community.post.application.CommentService;
+import community.post.application.dto.CreateCommentRequestDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdateCommentRequestDto;
 import community.post.domain.comment.Comment;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
+
+    @PostMapping
+    public Response<Long> createComment(@RequestBody CreateCommentRequestDto dto) {
+        Comment comment = commentService.createComment(dto);
+        return Response.ok(comment.getId());
+    }
 
     @PatchMapping("/{commentId}")
     public Response<Long> updateComment(@PathVariable(name = "commentId") Long commentId,
