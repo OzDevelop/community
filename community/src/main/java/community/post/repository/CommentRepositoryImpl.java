@@ -1,9 +1,11 @@
 package community.post.repository;
 
 import community.post.application.interfaces.CommentRepository;
+import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.post.repository.entity.comment.CommentEntity;
 import community.post.repository.jpa.JpaCommentRepository;
+import community.post.repository.jpa.JpaPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +14,12 @@ import org.springframework.stereotype.Repository;
 public class CommentRepositoryImpl implements CommentRepository {
 
     private final JpaCommentRepository jpaCommentRepository;
+    private final JpaPostRepository jpaPostRepository;
 
     @Override
     public Comment save(Comment comment) {
         CommentEntity commentEntity = new CommentEntity(comment);
+        Post targetPost = comment.getPost();
         if (commentEntity.getId() != null) {
             commentEntity.update(comment.getContentText());
 
@@ -24,6 +28,8 @@ public class CommentRepositoryImpl implements CommentRepository {
             return commentEntity.toComment();
         }
         CommentEntity savedCommentEntity = jpaCommentRepository.save(commentEntity);
+        jpaPostRepository.increaseCommentCount(targetPost.getId());
+
         return savedCommentEntity.toComment();
     }
 

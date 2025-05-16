@@ -10,6 +10,7 @@ import community.post.domain.comment.Comment;
 import community.user.domain.User;
 import community.user.application.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -27,6 +28,7 @@ public class CommentService {
         this.likeRepository = likeRepository;
     }
 
+    @Transactional
     public Comment createComment(CreateCommentRequestDto dto) {
         Post post = postService.getPost(dto.postId());
         User author = userService.getUser(dto.authorId());
