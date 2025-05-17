@@ -42,6 +42,6 @@ public class UserRelationService {
         }
 
         user.unfollow(targetUser);
-        userRelationRepository.save(user, targetUser);
+        userRelationRepository.delete(user, targetUser);
     }
 }
