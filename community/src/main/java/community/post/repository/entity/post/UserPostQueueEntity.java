@@ -23,5 +23,11 @@ public class UserPostQueueEntity {
     private Long postId;
     private Long authorId;
 
+    public UserPostQueueEntity(Long userId, Long postId, Long authorId) {
+        this.userId = userId;
+        this.postId = postId;
+        this.authorId = authorId;
+    }
+
 
 }
