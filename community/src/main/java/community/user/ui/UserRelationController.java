@@ -21,6 +21,7 @@ public class UserRelationController {
         return Response.ok(null);
     }
 
+    @PostMapping("/unfollow")
     public Response<Void> unfollowUser(@RequestBody FollowUserRequestDto dto) {
         userRelationService.unfollow(dto);
         return Response.ok(null);

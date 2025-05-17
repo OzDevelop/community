@@ -1,6 +1,7 @@
 package community.post.repository;
 
 import community.post.application.interfaces.PostRepository;
+import community.post.application.interfaces.UserPostQueueCommandRepository;
 import community.post.domain.Post;
 import community.post.repository.entity.post.PostEntity;
 import community.post.repository.jpa.JpaPostRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository {
     private final JpaPostRepository jpaPostRepository;
+    private final UserPostQueueCommandRepository commandRepository;
 
 
     //TODO - 추후 JPQL 이용으로 변경 가능.
@@ -32,6 +34,7 @@ public class PostRepositoryImpl implements PostRepository {
             return postEntity.toPost();
         } else {
             PostEntity saved = jpaPostRepository.save(postEntity);
+            commandRepository.publishPost(saved);
             return saved.toPost();
         }
     }
