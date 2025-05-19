@@ -3,22 +3,28 @@ package community.auth.repository;
 import community.auth.application.interfaces.EmailRepository;
 import community.auth.domain.Email;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RequiredArgsConstructor
 public class SmtpEmailRepository implements EmailRepository {
 
     private final JavaMailSender javaMailSender;
+    private final String senderEmailAddress;
+
+    public SmtpEmailRepository(JavaMailSender javaMailSender,
+                               @Value("${spring.mail.username}") String senderEmailAddress) {
+        this.javaMailSender = javaMailSender;
+        this.senderEmailAddress = senderEmailAddress;
+    }
 
     @Override
     public void sendEmail(Email email, String subject, String htmlBody) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
-            message.setFrom("noreply.communityb@gmail.com");
+            message.setFrom(senderEmailAddress);
             message.setRecipients(MimeMessage.RecipientType.TO, email.getEmailText());
             message.setSubject(subject);
             message.setText(htmlBody, "UTF-8", "html");
