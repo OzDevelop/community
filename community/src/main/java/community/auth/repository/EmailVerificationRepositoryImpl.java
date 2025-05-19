@@ -1,6 +1,5 @@
 package community.auth.repository;
 
-import community.auth.application.interfaces.EmailRepository;
 import community.auth.application.interfaces.EmailVerificationRepository;
 import community.auth.domain.Email;
 import community.auth.repository.entity.EmailVerificationEntity;
