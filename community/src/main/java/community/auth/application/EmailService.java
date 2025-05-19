@@ -19,6 +19,11 @@ public class EmailService {
 
     public String sendEmail(SendEmailRequestDto dto) {
         Email email = Email.createEmail(dto.email());
+
+        if (emailVerificationRepository.isEmailVerified(email)) {
+            throw new IllegalArgumentException("이미 인증된 이메일입니다.");
+        }
+
         String token = RandomTokenGenerator.generateToken();
 
         String subject = "이메일 인증";
