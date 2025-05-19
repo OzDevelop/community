@@ -2,12 +2,11 @@ package community.auth.application;
 
 import community.auth.application.dto.SendEmailRequestDto;
 import community.auth.application.interfaces.EmailRepository;
+import community.auth.application.interfaces.EmailVerificationRepository;
 import community.auth.domain.Email;
 import community.auth.domain.RandomTokenGenerator;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     private final EmailRepository emailRepository;
+    private final EmailVerificationRepository emailVerificationRepository;
 
     public String sendEmail(SendEmailRequestDto dto) {
         Email email = Email.createEmail(dto.email());
@@ -24,11 +24,15 @@ public class EmailService {
         String subject = "이메일 인증";
         String body = buildEmailBody(token);
 
-        log.info("[메일 전송 요청]: {}", email.getEmailText());
         emailRepository.sendEmail(email, subject, body);
-        log.info("[메일 전송 완료]");
+        emailVerificationRepository.createEmailVerification(email, token);
 
         return token;
+    }
+
+    public void verifyEmail(String email, String token) {
+        Email emailValue = Email.createEmail(email);
+        emailVerificationRepository.verifyEmail(emailValue, token);
     }
 
     private String buildEmailBody(String token) {
@@ -38,6 +42,4 @@ public class EmailService {
                 <h3>감사합니다.</h3>
                 """.formatted(token);
     }
-
-
 }
