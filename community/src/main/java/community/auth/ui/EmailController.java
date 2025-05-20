@@ -1,6 +1,7 @@
 package community.auth.ui;
 
 import community.auth.application.EmailService;
+import community.auth.application.dto.CreateUserAuthRequestDto;
 import community.auth.application.dto.SendEmailRequestDto;
 import community.common.ui.Response;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,11 @@ public class EmailController {
     public Response<Void> verifyEmail(String email, String token) {
         emailService.verifyEmail(email, token);
         return Response.ok(null);
+    }
+
+    @PostMapping("/register")
+    public Response<Long> register(@RequestBody CreateUserAuthRequestDto dto) {
+        return Response.ok(1L);
+
     }
 }
