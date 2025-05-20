@@ -22,4 +22,16 @@ public class UserAuth {
     public Long getUserId() {
         return userId;
     }
+
+    public String getEmail() {
+        return email.getEmailText();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserRole() {
+        return role.name();
+    }
 }
