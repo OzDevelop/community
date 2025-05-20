@@ -27,4 +27,17 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
 
         return userAuthEntity.toUserAuth();
     }
+
+    @Override
+    @Transactional
+    public UserAuth login(String email, String password) {
+        UserAuthEntity userAuthEntity = jpaUserAuthRepository.findByEmail(email).orElseThrow();
+        UserAuth userAuth = userAuthEntity.toUserAuth();
+
+        if(!userAuth.getPassword().equals(password)) {
+            throw new IllegalArgumentException("옳지 않은 비밀번호 입니다.");
+        }
+
+        return userAuth;
+    }
 }
