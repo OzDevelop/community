@@ -33,4 +33,16 @@ public class TokenProvider {
                 .signWith(key)
                 .compact();
     }
+
+    public Long getUserId(String token) {
+        return Long.parseLong(
+                Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject()
+        );
+
+    }
 }
