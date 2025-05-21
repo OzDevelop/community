@@ -5,7 +5,6 @@ import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.post.repository.entity.like.LikeEntity;
 import community.post.repository.jpa.JpaLikeRepository;
-import community.post.repository.jpa.JpaPostRepository;
 import community.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

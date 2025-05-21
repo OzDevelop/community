@@ -1,7 +1,5 @@
 package community.post.domain.content;
 
-import community.post.domain.common.DatetimeInfo;
-
 public class PostContent extends Content {
 
 

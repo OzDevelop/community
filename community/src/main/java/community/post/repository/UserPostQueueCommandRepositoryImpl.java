@@ -1,15 +1,12 @@
 package community.post.repository;
 
-import community.post.application.interfaces.PostRepository;
 import community.post.application.interfaces.UserPostQueueCommandRepository;
 import community.post.repository.entity.post.PostEntity;
 import community.post.repository.entity.post.UserPostQueueEntity;
 import community.post.repository.jpa.JpaPostRepository;
 import community.post.repository.jpa.JpaUserPostQueueRepository;
-import community.user.application.interfaces.UserRepository;
 import community.user.repository.entity.UserEntity;
 import community.user.repository.jpa.JpaUserRelationRepository;
-import community.user.repository.jpa.JpaUserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
