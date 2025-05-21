@@ -31,6 +31,4 @@ class RandomTokenGeneratorTest {
         assertNotNull(token2);
         assertNotEquals(token1, token2);
     }
-
-
 }
