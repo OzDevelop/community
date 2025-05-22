@@ -1,21 +1,23 @@
 package community.auth.domain;
 
+import community.auth.domain.password.Password;
+
 public class UserAuth {
     private final Email email;
-    private final String password;
+    private final Password password;
     private final UserRole role;
     private Long userId;
 
     public UserAuth(String email, String password, String role, Long userId) {
         this.email = Email.createEmail(email);
-        this.password = password;
+        this.password = Password.createEncryptedPassword(password);
         this.role = UserRole.valueOf(role);
         this.userId = userId;
     }
 
     public UserAuth(String email, String password, String role) {
         this.email = Email.createEmail(email);
-        this.password = password;
+        this.password = Password.createEncryptedPassword(password);
         this.role = UserRole.valueOf(role);
     }
 
@@ -28,7 +30,7 @@ public class UserAuth {
     }
 
     public String getPassword() {
-        return password;
+        return password.getPassword();
     }
 
     public String getUserRole() {
