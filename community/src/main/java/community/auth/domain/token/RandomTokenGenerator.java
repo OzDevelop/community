@@ -1,4 +1,4 @@
-package community.auth.domain;
+package community.auth.domain.token;
 
 import java.security.SecureRandom;
 
