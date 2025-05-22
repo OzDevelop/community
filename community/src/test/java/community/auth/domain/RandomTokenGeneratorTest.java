@@ -2,6 +2,7 @@ package community.auth.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.auth.domain.token.RandomTokenGenerator;
 import org.junit.jupiter.api.Test;
 
 class RandomTokenGeneratorTest {

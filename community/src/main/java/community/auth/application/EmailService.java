@@ -4,7 +4,7 @@ import community.auth.application.dto.SendEmailRequestDto;
 import community.auth.application.interfaces.EmailRepository;
 import community.auth.application.interfaces.EmailVerificationRepository;
 import community.auth.domain.Email;
-import community.auth.domain.RandomTokenGenerator;
+import community.auth.domain.token.RandomTokenGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

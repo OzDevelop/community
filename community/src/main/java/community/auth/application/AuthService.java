@@ -6,7 +6,7 @@ import community.auth.application.dto.UserAccessTokenResponseDto;
 import community.auth.application.interfaces.EmailVerificationRepository;
 import community.auth.application.interfaces.UserAuthRepository;
 import community.auth.domain.Email;
-import community.auth.domain.TokenProvider;
+import community.auth.domain.token.TokenProvider;
 import community.auth.domain.UserAuth;
 import community.user.domain.User;
 import lombok.RequiredArgsConstructor;

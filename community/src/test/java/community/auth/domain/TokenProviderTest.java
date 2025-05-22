@@ -2,6 +2,7 @@ package community.auth.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.auth.domain.token.TokenProvider;
 import org.junit.jupiter.api.Test;
 
 class TokenProviderTest {
