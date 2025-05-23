@@ -35,7 +35,10 @@ public class AuthService {
     }
 
     public UserAccessTokenResponseDto loginUser(LoginRequestDto dto) {
+        System.out.println("LoginRequestDto dto.email()" + dto.email());
+        System.out.println("LoginRequestDto dto.password()" + dto.password());
         UserAuth userAuth = userAuthRepository.login(dto.email(), dto.password());
+        System.out.println("LoginRequestDto dto.password()" + dto.password());
         String token = tokenProvider.createToken(userAuth.getUserId(), userAuth.getUserRole());
 
         return new UserAccessTokenResponseDto(token);

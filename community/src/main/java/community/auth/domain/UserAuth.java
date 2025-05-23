@@ -10,7 +10,7 @@ public class UserAuth {
 
     public UserAuth(String email, String password, String role, Long userId) {
         this.email = Email.createEmail(email);
-        this.password = Password.createEncryptedPassword(password);
+        this.password = Password.createPassword(password);
         this.role = UserRole.valueOf(role);
         this.userId = userId;
     }
@@ -30,7 +30,11 @@ public class UserAuth {
     }
 
     public String getPassword() {
-        return password.getPassword();
+        return password.getEncryptedPassword();
+    }
+
+    public boolean matchPassword(String password) {
+        return this.password.matchPassword(password);
     }
 
     public String getUserRole() {

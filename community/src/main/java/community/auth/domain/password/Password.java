@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Password {
-    private final String password;
+    private final String encryptedPassword;
 
     public static Password createEncryptedPassword(String password) {
         if(password == null || password.isEmpty()) {
@@ -14,9 +14,16 @@ public class Password {
         return new Password(SHA256.encrypt(password));
     }
 
-    public String getPassword() {
-        return password;
+    public boolean matchPassword(String password) {
+        return encryptedPassword.equals(SHA256.encrypt(password));
     }
 
-    public boo
+    public static Password createPassword(String encryptedPassword) {
+        return new Password(encryptedPassword);
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
 }
