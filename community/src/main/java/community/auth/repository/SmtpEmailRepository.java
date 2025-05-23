@@ -4,10 +4,12 @@ import community.auth.application.interfaces.EmailRepository;
 import community.auth.domain.Email;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Profile("!test")
 public class SmtpEmailRepository implements EmailRepository {
 
     private final JavaMailSender javaMailSender;
