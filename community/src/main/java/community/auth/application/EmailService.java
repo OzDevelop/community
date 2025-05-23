@@ -18,13 +18,21 @@ public class EmailService {
     private final EmailVerificationRepository emailVerificationRepository;
 
     public String sendEmail(SendEmailRequestDto dto) {
+        System.out.println("➡️ EmailService.sendEmail 진입");
+
+        System.out.println("📧 이메일 검증 전: [" + dto.email() + "]");
         Email email = Email.createEmail(dto.email());
+        System.out.println("✅ 이메일 생성 완료: " + email);
 
-        if (emailVerificationRepository.isEmailVerified(email)) {
-            throw new IllegalArgumentException("이미 인증된 이메일입니다.");
-        }
+//        if (emailVerificationRepository.isEmailVerified(email)) {
+//            System.out.println("!!!!!!!!!!!!!!!!!! 이게 걸려?");
+//            throw new IllegalArgumentException("이미 인증된 이메일입니다.");
+//        }
 
+        System.out.println("123123123123123123");
         String token = RandomTokenGenerator.generateToken();
+        System.out.println("✅ 토큰 생성 완료: " + token);
+
 
         String subject = "이메일 인증";
         String body = buildEmailBody(token);
