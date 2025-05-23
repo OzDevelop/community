@@ -27,10 +27,11 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
     void setup() {
         super.setUp();
          token = requestLoginGetToken(new LoginRequestDto("user1@test.com", "password"));
+        System.out.println("setUp 짱짱 잘된다!");
     }
 
     /**
-     * User2 가 Post 생성 시a
+     * User2 가 Post 생성 시
      * User1이 Post를 가져올 수 있는지 확인
      */
 
@@ -39,7 +40,9 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
         CreatePostRequestDto dto = new CreatePostRequestDto(2L, "포스트 가져오기 테스트", PostPublicationState.PUBLIC);
         Long createdPostId = requestCreatePost(dto);
 
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         List<GetPostContentResponseDto> result = requestFeedList(token);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         assertEquals(1, result.size());
         assertEquals(createdPostId, result.get(0).getId());

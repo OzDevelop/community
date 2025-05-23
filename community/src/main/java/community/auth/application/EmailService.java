@@ -5,6 +5,7 @@ import community.auth.application.interfaces.EmailRepository;
 import community.auth.application.interfaces.EmailVerificationRepository;
 import community.auth.domain.Email;
 import community.auth.domain.token.RandomTokenGenerator;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,15 @@ public class EmailService {
         String subject = "이메일 인증";
         String body = buildEmailBody(token);
 
+        System.out.println("✅ 이메일 본문 생성 완료");
+
+        debugEmailRepo();
+
         emailRepository.sendEmail(email, subject, body);
+        System.out.println("✅ 이메일 전송 완료");
+
         emailVerificationRepository.createEmailVerification(email, token);
+        System.out.println("✅ 이메일 인증 엔티티 저장 완료");
 
         return token;
     }
@@ -55,4 +63,10 @@ public class EmailService {
                 <h3>감사합니다.</h3>
                 """.formatted(token);
     }
+
+    @PostConstruct
+    private void debugEmailRepo() {
+        System.out.println("✅ 주입된 EmailRepository: " + emailRepository.getClass().getName());
+    }
 }
+

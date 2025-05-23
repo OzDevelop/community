@@ -32,6 +32,7 @@ public class FeedController {
         Long userId = tokenProvider.getUserId(token);
 
         System.out.println("userId: " + userId);
+        System.out.println("token: " + token);
         System.out.println("lastPostId: " + lastPostId);
 
         List<GetPostContentResponseDto> contentResponse = userPostQueueQueryRepository.getContentResponse(userId, lastPostId);

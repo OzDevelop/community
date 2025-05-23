@@ -30,6 +30,7 @@ public class DataLoader {
         }
 
 
+
         followUser(new FollowUserRequestDto(1L, 2L));
         followUser(new FollowUserRequestDto(1L, 3L));
     }
@@ -38,7 +39,7 @@ public class DataLoader {
         requestSendEmail(new SendEmailRequestDto(email));
 
         String token = getEmailToken(email);
-        System.out.println("🦁 token : " + token);
+        System.out.println(email+"🦁 token : " + token);
 
         requestVerifyEmail(email, token);
         requestRegisterEmail(new CreateUserAuthRequestDto(
