@@ -35,7 +35,7 @@ public class DataLoader {
         followUser(new FollowUserRequestDto(1L, 3L));
     }
 
-    private void createUser(String email) {
+    protected void createUser(String email) {
         requestSendEmail(new SendEmailRequestDto(email));
 
         String token = getEmailToken(email);
@@ -51,10 +51,23 @@ public class DataLoader {
         ));
     }
 
-    private String getEmailToken(String email) {
+    protected String getEmailToken(String email) {
         return em.createQuery("SELECT e.token FROM EmailVerificationEntity e WHERE e.email = :email", String.class)
                 .setParameter("email", email)
                 .getSingleResult()
                 .toString();
     }
+
+    protected boolean isEmailVerified(String email) {
+        return em.createQuery("SELECT isVerified FROM EmailVerificationEntity WHERE email = :email", Boolean.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    protected Long getUserId(String email) {
+        return em.createQuery("SELECT userId FROM UserAuthEntity WHERE email = :email", Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
 }

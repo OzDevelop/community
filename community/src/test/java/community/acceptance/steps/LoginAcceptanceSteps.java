@@ -24,4 +24,18 @@ public class LoginAcceptanceSteps {
         System.out.println("🦊🦊🦊🦊res.accessToken() " + res.accessToken());
         return res.accessToken();
     }
+
+    public static Integer requestLoginGetCode(LoginRequestDto dto) {
+        return RestAssured
+                .given()
+                .body(dto)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .post("/login")
+                .then()
+                .extract()
+                .jsonPath()
+                .getObject("code", Integer.class);
+
+    }
 }

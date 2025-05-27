@@ -18,4 +18,24 @@ public class AcceptanceTestTemplate {
         databaseCleanUp.execute();
         dataLoader.loadData();
     }
+
+    protected void cleanUp() {
+        databaseCleanUp.execute();
+    }
+
+    protected void createUser(String email) {
+        dataLoader.createUser(email);
+    }
+
+    protected String getEmailToken(String email) {
+        return dataLoader.getEmailToken(email);
+    }
+
+    protected boolean isEmailVerified(String email) {
+        return dataLoader.isEmailVerified(email);
+    }
+
+    protected Long getUserId(String email) {
+        return dataLoader.getUserId(email);
+    }
 }
