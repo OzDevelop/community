@@ -35,7 +35,7 @@ public class DataLoader {
         followUser(new FollowUserRequestDto(1L, 3L));
     }
 
-    public void createUser(String email) {
+    private void createUser(String email) {
         requestSendEmail(new SendEmailRequestDto(email));
 
         String token = getEmailToken(email);

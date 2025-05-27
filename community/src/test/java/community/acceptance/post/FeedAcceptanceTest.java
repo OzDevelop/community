@@ -1,6 +1,7 @@
 package community.acceptance.post;
 
 import static community.acceptance.steps.FeedAcceptanceSteps.requestCreatePost;
+import static community.acceptance.steps.FeedAcceptanceSteps.requestFeedCode;
 import static community.acceptance.steps.FeedAcceptanceSteps.requestFeedList;
 import static community.acceptance.steps.LoginAcceptanceSteps.requestLoginGetToken;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,4 +49,11 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
         assertEquals(createdPostId, result.get(0).getId());
     }
 
+    @Test
+    void givenUserHasFollowerAndCreatePostWhenGetPostThenReturnPostWithInvalidToken() {
+
+        Integer resultCode = requestFeedCode("invalid token");
+
+        assertEquals(400, resultCode);
+    }
 }

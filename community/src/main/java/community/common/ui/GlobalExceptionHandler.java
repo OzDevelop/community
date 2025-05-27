@@ -1,6 +1,7 @@
 package community.common.ui;
 
 import community.common.domain.exception.ErrorCode;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
     //TODO - 에러 범위 세분화
     @ExceptionHandler(Exception.class)
     public Response<Void> handleException(Exception exception) {
+
         return Response.error(ErrorCode.INTERNAL_ERROR);
+    }
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public Response<Void> handleMalformedJwtException(MalformedJwtException exception) {
+        return Response.error(ErrorCode.INVALID_INPUT_VALUE);
     }
 }
