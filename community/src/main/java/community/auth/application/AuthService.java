@@ -22,6 +22,10 @@ public class AuthService {
     public Long registerUser(CreateUserAuthRequestDto dto) {
         Email email = Email.createEmail(dto.email());
 
+        if(userAuthRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+        }
+
         if(!emailVerificationRepository.isEmailVerified(email)) {
             throw new IllegalArgumentException("인증되지 않은 이메일입니다.");
         }
@@ -35,10 +39,9 @@ public class AuthService {
     }
 
     public UserAccessTokenResponseDto loginUser(LoginRequestDto dto) {
-        System.out.println("LoginRequestDto dto.email()" + dto.email());
-        System.out.println("LoginRequestDto dto.password()" + dto.password());
+
         UserAuth userAuth = userAuthRepository.login(dto.email(), dto.password());
-        System.out.println("LoginRequestDto dto.password()" + dto.password());
+
         String token = tokenProvider.createToken(userAuth.getUserId(), userAuth.getUserRole());
 
         return new UserAccessTokenResponseDto(token);
