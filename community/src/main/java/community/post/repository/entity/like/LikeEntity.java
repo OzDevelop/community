@@ -1,5 +1,6 @@
 package community.post.repository.entity.like;
 
+import community.common.repository.entity.TimeBaseEntity;
 import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "community_like")
 @Getter
 @NoArgsConstructor
-public class LikeEntity {
+public class LikeEntity extends TimeBaseEntity {
 
     @EmbeddedId
     private LikeIdEntity id;

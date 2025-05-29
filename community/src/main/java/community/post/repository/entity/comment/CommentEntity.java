@@ -1,6 +1,7 @@
 package community.post.repository.entity.comment;
 
 import community.common.IntegerRelationCounter;
+import community.common.repository.entity.TimeBaseEntity;
 import community.post.domain.comment.Comment;
 import community.post.domain.content.CommentContent;
 import community.post.domain.content.Content;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentEntity {
+public class CommentEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

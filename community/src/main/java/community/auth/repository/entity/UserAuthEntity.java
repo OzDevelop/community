@@ -1,6 +1,7 @@
 package community.auth.repository.entity;
 
 import community.auth.domain.UserAuth;
+import community.common.repository.entity.TimeBaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class UserAuthEntity {
+public class UserAuthEntity extends TimeBaseEntity {
 
     @Id
     private String email;

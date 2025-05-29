@@ -71,4 +71,14 @@ public class FakeLikeRepository implements LikeRepository {
         users.remove(user);
         commentLikes.put(comment, users);
     }
+
+    @Override
+    public void deleteAllByPostId(Long postId) {
+
+    }
+
+    @Override
+    public void deleteAllByCommentId(Long CommentId) {
+
+    }
 }

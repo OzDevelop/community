@@ -1,6 +1,7 @@
 package community.post.repository.entity.post;
 
 import community.common.IntegerRelationCounter;
+import community.common.repository.entity.TimeBaseEntity;
 import community.post.domain.Post;
 import community.post.domain.content.PostContent;
 import community.post.domain.content.PostPublicationState;
@@ -24,7 +25,7 @@ import org.hibernate.annotations.ColumnDefault;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class PostEntity {
+public class PostEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
