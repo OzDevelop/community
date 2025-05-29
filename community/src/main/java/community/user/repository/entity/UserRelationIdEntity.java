@@ -13,4 +13,4 @@ import lombok.NoArgsConstructor;
 public class UserRelationIdEntity {
     private Long followingUserId;
     private Long followerUserId;
-}
+} 
