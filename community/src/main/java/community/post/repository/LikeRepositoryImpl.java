@@ -63,6 +63,10 @@ public class LikeRepositoryImpl implements LikeRepository {
         LikeEntity likeEntity = new LikeEntity(comment, user);
 
         jpaLikeRepository.deleteById(likeEntity.getId());
+    }
+
+    @Override
+    public void deleteAllByPostId(Long postId) {
 
     }
 }

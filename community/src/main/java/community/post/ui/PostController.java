@@ -8,6 +8,7 @@ import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdatePostRequestDto;
 import community.post.domain.Post;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,14 @@ public class PostController {
                                      @RequestBody UpdatePostRequestDto dto) {
         Post post = postService.updatePost(postId, dto);
         return Response.ok(post.getId());
+    }
+
+
+    @DeleteMapping("/{postId}")
+    public Response<Long> deletePost(@PathVariable(name = "postId") Long postId) {
+        postService.deletePost(postId);
+        return Response.ok(postId);
+
     }
 
 

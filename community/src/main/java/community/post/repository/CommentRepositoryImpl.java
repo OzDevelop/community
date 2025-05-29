@@ -38,4 +38,9 @@ public class CommentRepositoryImpl implements CommentRepository {
         CommentEntity commentEntity = jpaCommentRepository.findById(id).orElseThrow();
         return commentEntity.toComment();
     }
+
+    @Override
+    public void deleteAllByPostId(Long postId) {
+        jpaCommentRepository.deleteAllByPostId(postId);
+    }
 }
