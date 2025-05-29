@@ -48,7 +48,6 @@ public class PostController {
 
     }
 
-
     // like
     // 동작 확인 O
     @PostMapping("/like")

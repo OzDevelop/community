@@ -14,4 +14,5 @@ public interface LikeRepository {
     void unlike(Comment comment, User user);
 
     void deleteAllByPostId(Long postId);
+    void deleteAllByCommentId(Long CommentId);
 }

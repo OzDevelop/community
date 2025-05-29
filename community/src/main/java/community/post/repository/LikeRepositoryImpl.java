@@ -67,6 +67,11 @@ public class LikeRepositoryImpl implements LikeRepository {
 
     @Override
     public void deleteAllByPostId(Long postId) {
+        jpaLikeRepository.deleteAllByPostId(postId);
+    }
 
+    @Override
+    public void deleteAllByCommentId(Long commentId) {
+        jpaLikeRepository.deleteAllByCommentId(commentId);
     }
 }

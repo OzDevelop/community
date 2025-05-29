@@ -50,4 +50,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     public List<GetCommentListResponseDto> getCommentList(Long postId) {
         return jpaCommentRepository.getCommentList(postId);
     }
+
+    @Override
+    public void delete(Comment comment) {
+        jpaCommentRepository.deleteById(comment.getId());
+    }
 }

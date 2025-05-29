@@ -9,6 +9,7 @@ import community.post.application.dto.UpdateCommentRequestDto;
 import community.post.domain.comment.Comment;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,13 @@ public class CommentController {
         Comment comment = commentService.updateComment(commentId, dto);
 
         return Response.ok(comment.getId());
+    }
+
+    @DeleteMapping("/{commentId}")
+    public Response<Void> deleteComment(@PathVariable(name = "commentId") Long commentId) {
+        commentService.deleteComment(commentId);
+
+        return Response.ok(null);
     }
 
     @PostMapping("/like")

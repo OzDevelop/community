@@ -15,4 +15,9 @@ public interface JpaLikeRepository extends JpaRepository<LikeEntity, LikeIdEntit
     @Transactional
     @Query("DELETE FROM LikeEntity l WHERE l.id.targetId = :postId AND l.id.targetType = 'POST'")
     void deleteAllByPostId(@Param("postId") Long postId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM LikeEntity l WHERE l.id.targetId = :commentId AND l.id.targetType = 'COMMENT'")
+    void deleteAllByCommentId(@Param("commentId") Long commentId);
 }

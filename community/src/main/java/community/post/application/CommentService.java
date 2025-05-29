@@ -76,4 +76,12 @@ public class CommentService {
     public List<GetCommentListResponseDto> getCommnetList(Long postId) {
         return commentRepository.getCommentList(postId);
     }
+
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId);
+
+         likeRepository.deleteAllByCommentId(commentId);
+
+         commentRepository.delete(comment);
+    }
 }
