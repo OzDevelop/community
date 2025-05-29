@@ -36,7 +36,7 @@ public class Password {
         }
 
         if(password.contains(" ")) {
-            throw new IllegalArgumentException()
+            throw new IllegalArgumentException("비밀번호에 공백을 포함할 수 없습니다.");
         }
 
         int matchCount = 0;
