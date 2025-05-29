@@ -1,11 +1,13 @@
 package community.post.repository;
 
+import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.interfaces.CommentRepository;
 import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.post.repository.entity.comment.CommentEntity;
 import community.post.repository.jpa.JpaCommentRepository;
 import community.post.repository.jpa.JpaPostRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -42,5 +44,10 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Override
     public void deleteAllByPostId(Long postId) {
         jpaCommentRepository.deleteAllByPostId(postId);
+    }
+
+    @Override
+    public List<GetCommentListResponseDto> getCommentList(Long postId) {
+        return jpaCommentRepository.getCommentList(postId);
     }
 }

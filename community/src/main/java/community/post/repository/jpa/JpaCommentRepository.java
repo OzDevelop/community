@@ -1,6 +1,8 @@
 package community.post.repository.jpa;
 
+import community.post.application.dto.GetCommentListResponseDto;
 import community.post.repository.entity.comment.CommentEntity;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +15,9 @@ public interface JpaCommentRepository extends JpaRepository<CommentEntity, Long>
     @Transactional
     @Query("DELETE FROM CommentEntity c WHERE c.post.id = :postId")
     void deleteAllByPostId(@Param("postId") Long postId);
+
+    @Query("SELECT new community.post.application.dto.GetCommentListResponseDto(c.id, c.content) "
+            + "FROM CommentEntity c "
+            + "WHERE c.post.id = :postId" )
+    List<GetCommentListResponseDto> getCommentList(@Param("postId") Long postId);
 }

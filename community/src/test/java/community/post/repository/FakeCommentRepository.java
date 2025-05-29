@@ -1,8 +1,10 @@
 package community.post.repository;
 
+import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.interfaces.CommentRepository;
 import community.post.domain.comment.Comment;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FakeCommentRepository implements CommentRepository {
@@ -20,6 +22,16 @@ public class FakeCommentRepository implements CommentRepository {
         Comment newComment = new Comment(id, comment.getPost(), comment.getAuthor(), comment.getContentText());
         store.put(id, newComment);
         return newComment;
+    }
+
+    @Override
+    public void deleteAllByPostId(Long postId) {
+
+    }
+
+    @Override
+    public List<GetCommentListResponseDto> getCommentList(Long postId) {
+        return List.of();
     }
 
     @Override

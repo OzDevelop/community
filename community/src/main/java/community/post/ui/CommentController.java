@@ -3,10 +3,13 @@ package community.post.ui;
 import community.common.ui.Response;
 import community.post.application.CommentService;
 import community.post.application.dto.CreateCommentRequestDto;
+import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdateCommentRequestDto;
 import community.post.domain.comment.Comment;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +27,12 @@ public class CommentController {
     public Response<Long> createComment(@RequestBody CreateCommentRequestDto dto) {
         Comment comment = commentService.createComment(dto);
         return Response.ok(comment.getId());
+    }
+
+    @GetMapping("/{postId}")
+    public Response<List<GetCommentListResponseDto>>  getCommentList(@PathVariable(name = "postId") Long postId) {
+        List<GetCommentListResponseDto> result = commentService.getCommnetList(postId);
+        return Response.ok(result);
     }
 
     @PatchMapping("/{commentId}")

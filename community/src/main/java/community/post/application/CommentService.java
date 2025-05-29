@@ -1,6 +1,7 @@
 package community.post.application;
 
 import community.post.application.dto.CreateCommentRequestDto;
+import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdateCommentRequestDto;
 import community.post.application.interfaces.CommentRepository;
@@ -9,6 +10,7 @@ import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,5 +71,9 @@ public class CommentService {
             commentRepository.save(comment);
             likeRepository.unlike(comment, user);
         }
+    }
+
+    public List<GetCommentListResponseDto> getCommnetList(Long postId) {
+        return commentRepository.getCommentList(postId);
     }
 }
