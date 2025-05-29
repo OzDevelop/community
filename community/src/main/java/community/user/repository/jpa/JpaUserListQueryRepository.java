@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface JpaUserListQueryRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query(value = "select community.user.application.dto.GetUserListResponseDto(u.name, u.profileImage)"
+    @Query(value = "select new community.user.application.dto.GetUserListResponseDto(u.name, u.profileImage)"
             + "from UserRelationEntity ur "
             + "INNER Join UserEntity u ON ur.followerUserId = u.id "
             + "Where ur.followingUserId = :userId")
     List<GetUserListResponseDto> getFollowingUserList(Long userId);
 
-    @Query(value = "select community.user.application.dto.GetUserListResponseDto(u.name, u.profileImage)"
+    @Query(value = "select new community.user.application.dto.GetUserListResponseDto(u.name, u.profileImage)"
             + "from UserRelationEntity ur "
             + "INNER Join UserEntity u ON ur.followingUserId = u.id "
             + "Where ur.followerUserId = :userId")
