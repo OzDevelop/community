@@ -11,19 +11,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public Response<Void> handleIllegalArgumentException(IllegalArgumentException exception) {
+    public Response<Void> handleIllegalArgumentException(IllegalArgumentException e) {
+        log.warn("Invalid input: {}", e.getMessage());
         return Response.error(ErrorCode.INVALID_INPUT_VALUE);
     }
 
     //TODO - 에러 범위 세분화
     @ExceptionHandler(Exception.class)
-    public Response<Void> handleException(Exception exception) {
-
+    public Response<Void> handleException(Exception e) {
+        log.warn("Invalid input: {}", e.getMessage());
         return Response.error(ErrorCode.INTERNAL_ERROR);
     }
 
     @ExceptionHandler(MalformedJwtException.class)
-    public Response<Void> handleMalformedJwtException(MalformedJwtException exception) {
+    public Response<Void> handleMalformedJwtException(MalformedJwtException e) {
+        log.warn("Invalid input: {}", e.getMessage());
         return Response.error(ErrorCode.INVALID_INPUT_VALUE);
     }
 }
