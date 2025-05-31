@@ -50,7 +50,7 @@ public class Post {
     // 좋아요
     public void like(User user) {
         if(this.author.equals(user)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("자신의 글에는 좋아요를 누를 수 없습니다.");
         }
         likeCount.increase();
 
@@ -64,7 +64,7 @@ public class Post {
     // Post 업데이트
     public void updatePost(User user, String updateContent, PostPublicationState state) {
         if(!this.author.equals(user)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("자신의 글에는 좋아요를 취소할 수 없습니다."));
         }
         this.state = state;
         this.content.updateContent(updateContent);
