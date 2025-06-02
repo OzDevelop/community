@@ -7,7 +7,6 @@ import java.util.Optional;
 public interface EmailVerificationRepository {
     // 인증 관련 메서드
     void createEmailVerification(Email email, String token);
-    void verifyEmail(Email email, String token);
     boolean isEmailVerified(Email email);
 
     Optional<EmailVerificationEntity> getEmailVerificationEntity(Email email);
