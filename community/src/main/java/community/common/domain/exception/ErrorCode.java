@@ -11,16 +11,23 @@ public enum ErrorCode {
     INTERNAL_ERROR(500, "Unexpected error"),
 
 
-    /**  Email Error
-     *  유효하지 않은 이메일 형식
-     *  빈(공백) 이메일 입력
+    /**  Email Exception
      */
     INVALID_EMAIL(400, "유효하지 않은 이메일 형식입니다."),
     EMAIL_REQUIRED(400, "이메일은 필수 값입니다."),
     ALREADY_VERIFIED_EMAIL(409, "이미 인증된 이메일입니다."),
     EMAIL_NOT_VERIFIED(400, "이메일 인증이 완료되지 않았습니다."),
     EMAIL_VERIFICATION_NOT_REQUESTED(400, "이메일 인증 요청이 존재하지 않습니다."),
-    INVALID_EMAIL_TOKEN(400, "잘못된 이메일 인증번호입니다.")
+    INVALID_EMAIL_TOKEN(400, "잘못된 이메일 인증번호입니다."),
+
+    /** Password Exception
+     */
+    PASSWORD_NOT_CONTAIN_SPACE(400, "비밀번호는 공백을 포함할 수 없습니다."),
+    PASSWORD_COMPLEXITY(400, "비밀번호는 영문, 숫자, 특수문자 중 최소 2종류를 포함해야 합니다."),
+    PASSWORD_REPEAT(400, "같은 문자를 3번 이상 반복할 수 없습니다."),
+    PASSWORD_SEQUENCE(400, "연속된 숫자 또는 문자는 사용할 수 없습니다."),
+    PASSWORD_LENGTH_INVALID(400, "비밀번호는 8자 이상 20자 이하로 입력해야 합니다."),
+
     ;
 
     private final Integer code;
