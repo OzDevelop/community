@@ -28,6 +28,13 @@ public enum ErrorCode {
     PASSWORD_SEQUENCE(400, "연속된 숫자 또는 문자는 사용할 수 없습니다."),
     PASSWORD_LENGTH_INVALID(400, "비밀번호는 8자 이상 20자 이하로 입력해야 합니다."),
 
+    /** Post Exception
+     */
+    SELF_LIKE_NOT_ALLOWED(400, "자신의 글에는 좋아요를 취소할 수 없습니다."),
+    UNAUTHORIZED_POST_UPDATE(401, "직접 작성한 글만 수정할 수 있습니다." ),
+    POST_NOT_EXIST(404, "존재하지 않는 게시글입니다."),
+    POST_AUTHOR_CANNOT_EMPTY(400, "글 작성자는 공백일 수 없습니다.")
+
     ;
 
     private final Integer code;

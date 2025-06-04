@@ -4,6 +4,7 @@ import community.common.domain.exception.ErrorCode;
 import community.common.domain.exception.ExceptionBase;
 import community.common.domain.exception.emailException.EmailException;
 import community.common.domain.exception.passwordException.PasswordException;
+import community.common.domain.exception.postException.PostException;
 import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PasswordException.class)
     public Response<Void> handleEmailException(PasswordException e) {
         log.warn("Password error: {}", e.getMessage());
+        return Response.error(e.getErrorCode());
+    }
+
+
+    @ExceptionHandler(PostException.class)
+    public Response<Void> handleEmailException(PostException e) {
+        log.warn("Post error: {}", e.getMessage());
         return Response.error(e.getErrorCode());
     }
 }
