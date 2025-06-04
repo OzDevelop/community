@@ -30,10 +30,16 @@ public enum ErrorCode {
 
     /** Post Exception
      */
-    SELF_LIKE_NOT_ALLOWED(400, "자신의 글에는 좋아요를 취소할 수 없습니다."),
+    SELF_LIKE_NOT_ALLOWED(400, "자신의 글에는 좋아요를 누를 수 없습니다."),
     UNAUTHORIZED_POST_UPDATE(401, "직접 작성한 글만 수정할 수 있습니다." ),
     POST_NOT_EXIST(404, "존재하지 않는 게시글입니다."),
-    POST_AUTHOR_CANNOT_EMPTY(400, "글 작성자는 공백일 수 없습니다.")
+    POST_AUTHOR_REQUIRED(400, "글 작성자는 공백일 수 없습니다."),
+    POST_CONTENT_REQUIRED(400, "게시글은 공백일 수 없습니다."),
+    POST_MAXIMUM_CONTENT_LENGTH(400, "게시글은 최대 500자까지 작성할 수 있습니다."),
+    POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최대 5자까지 작성할 수 있습니다."),
+    COMMENT_REQUIRED_CONTENT(400, "댓글은 공백일 수 없습니다."),
+    COMMENT_MAXIMUM_CONTENT_LENGTH(400, "댓글은 최대 100자까지 작성할 수 있습니다.")
+
 
     ;
 

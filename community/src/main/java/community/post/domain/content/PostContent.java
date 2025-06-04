@@ -1,5 +1,9 @@
 package community.post.domain.content;
 
+import community.common.domain.exception.postException.PostContentRequiredException;
+import community.common.domain.exception.postException.PostMaximumContentLengthException;
+import community.common.domain.exception.postException.PostMinimumContentLengthException;
+
 public class PostContent extends Content {
 
 
@@ -23,10 +27,10 @@ public class PostContent extends Content {
     //🦊 contextText 검증
     protected void checkText(String contentText) {
         if (contentText == null || contentText.isEmpty())
-            throw new IllegalArgumentException();
+            throw new PostContentRequiredException();
         if (contentText.length() > MAX_LENGTH)
-            throw new IllegalArgumentException();
+            throw new PostMaximumContentLengthException();
         if (contentText.length() <MIN_LENGTH)
-            throw new IllegalArgumentException();
+            throw new PostMinimumContentLengthException();
     }
 }
