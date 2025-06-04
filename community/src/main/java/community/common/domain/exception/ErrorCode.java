@@ -43,6 +43,7 @@ public enum ErrorCode {
 
     /** Password Exception
      */
+    PASSWORD_REQUIRED(400, "비밀번호는 공백일 수 없습니다."),
     PASSWORD_NOT_CONTAIN_SPACE(400, "비밀번호는 공백을 포함할 수 없습니다."),
     PASSWORD_COMPLEXITY(400, "비밀번호는 영문, 숫자, 특수문자 중 최소 2종류를 포함해야 합니다."),
     PASSWORD_REPEAT(400, "같은 문자를 3번 이상 반복할 수 없습니다."),
