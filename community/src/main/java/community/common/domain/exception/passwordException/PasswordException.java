@@ -8,3 +8,4 @@ public class PasswordException extends ExceptionBase {
         super(code);
     }
 }
+ 
