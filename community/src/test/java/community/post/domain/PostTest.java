@@ -2,6 +2,8 @@ package community.post.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.common.domain.exception.postException.SelfLikeNotAllowedException;
+import community.common.domain.exception.postException.UnauthorizedPostUpdateException;
 import community.post.domain.content.Content;
 import community.post.domain.content.PostContent;
 import community.user.domain.User;
@@ -25,7 +27,7 @@ class PostTest {
 
     @Test
     void givenCreatePostWhenLikeWhoAuthorThenThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> post.like(user));
+        assertThrows(SelfLikeNotAllowedException.class, () -> post.like(user));
     }
 
     @Test
@@ -58,6 +60,6 @@ class PostTest {
     void givenCreatePostWhenUpdateContentByOtherUserThenThrowException() {
         String updateContent = "Update Test Content";
 
-        assertThrows(IllegalArgumentException.class, () -> post.updatePost(otherUser, updateContent, null));
+        assertThrows(UnauthorizedPostUpdateException.class, () -> post.updatePost(otherUser, updateContent, null));
     }
 }

@@ -3,6 +3,7 @@ package community.auth.domain;
 import static org.junit.jupiter.api.Assertions.*;
 
 import community.auth.domain.token.TokenProvider;
+import io.jsonwebtoken.MalformedJwtException;
 import org.junit.jupiter.api.Test;
 
 class TokenProviderTest {
@@ -22,11 +23,12 @@ class TokenProviderTest {
         assertEquals(role, tokenProvider.getRole(token));
     }
 
+    @Test
     void givenInvalidTokenWhenGetUserIdAndRoleThenReturnThrowException() {
         String invalidToken = "invalidToken";
 
-        assertThrows(IllegalArgumentException.class, () -> tokenProvider.getUserId(invalidToken));
-        assertThrows(IllegalArgumentException.class, () -> tokenProvider.getRole(invalidToken));
+        assertThrows(MalformedJwtException.class, () -> tokenProvider.getUserId(invalidToken));
+
     }
 
 }

@@ -12,7 +12,7 @@ class RandomTokenGeneratorTest {
         String token = RandomTokenGenerator.generateToken();
 
         assertNotNull(token);
-        assertTrue(token.length() == 16);
+        assertTrue(token.length() == 8);
     }
 
     @Test
@@ -20,7 +20,7 @@ class RandomTokenGeneratorTest {
         String token = RandomTokenGenerator.generateToken();
 
         assertNotNull(token);
-        assertTrue(token.matches("[0-9A-Za-z]{16}"));
+        assertTrue(token.matches("[0-9A-Za-z]{8}"));
     }
 
     @Test

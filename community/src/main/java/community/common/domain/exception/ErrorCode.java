@@ -28,7 +28,7 @@ public enum ErrorCode {
     POST_AUTHOR_REQUIRED(400, "글 작성자는 공백일 수 없습니다."),
     POST_CONTENT_REQUIRED(400, "게시글은 공백일 수 없습니다."),
     POST_MAXIMUM_CONTENT_LENGTH(400, "게시글은 최대 500자까지 작성할 수 있습니다."),
-    POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최대 5자까지 작성할 수 있습니다."),
+    POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최소 5자 이상 작성되어야 합니다."),
     COMMENT_REQUIRED_CONTENT(400, "댓글은 공백일 수 없습니다."),
     COMMENT_MAXIMUM_CONTENT_LENGTH(400, "댓글은 최대 100자까지 작성할 수 있습니다."),
 
@@ -49,9 +49,6 @@ public enum ErrorCode {
     PASSWORD_REPEAT(400, "같은 문자를 3번 이상 반복할 수 없습니다."),
     PASSWORD_SEQUENCE(400, "연속된 숫자 또는 문자는 사용할 수 없습니다."),
     PASSWORD_LENGTH_INVALID(400, "비밀번호는 8자 이상 20자 이하로 입력해야 합니다."),
-
-
-
 
     ;
 

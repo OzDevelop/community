@@ -5,6 +5,13 @@ import community.common.domain.exception.ExceptionBase;
 import community.common.ui.Response;
 import community.user.domain.User;
 
+
+/** test 시 assertThrows 에는 예외 클래스 자체를 넘겨야 하는데
+ * 메서드로 작성되어 있기 때문에 약간의 불편함이 있음.
+  */
+
+
+
 public class UserException extends ExceptionBase {
     public UserException(ErrorCode code) {
         super(code);

@@ -3,6 +3,7 @@ package community.user.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import community.Fake.FakeObjectFactory;
+import community.common.domain.exception.userException.UserException;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.application.dto.FollowUserRequestDto;
 import community.user.application.service.UserRelationService;
@@ -47,7 +48,7 @@ class UserRelationServiceTest {
         userRelationService.follow(requestDto);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () ->userRelationService.follow(requestDto));
+        assertThrows(UserException.class, () ->userRelationService.follow(requestDto));
     }
 
     @Test
@@ -56,7 +57,7 @@ class UserRelationServiceTest {
         FollowUserRequestDto sameUser = new FollowUserRequestDto(user1.getId(), user1.getId());
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () ->userRelationService.follow(sameUser));
+        assertThrows(UserException.class, () ->userRelationService.follow(sameUser));
     }
 
 
@@ -77,7 +78,7 @@ class UserRelationServiceTest {
     @Test
     void givenCreateTwoUser_whenUnfollow_thenUserThrowError() {
         // when, then
-        assertThrows(IllegalArgumentException.class, () ->userRelationService.unfollow(requestDto));
+        assertThrows(UserException.class, () ->userRelationService.unfollow(requestDto));
     }
 
     @Test
@@ -86,6 +87,6 @@ class UserRelationServiceTest {
         FollowUserRequestDto sameUser = new FollowUserRequestDto(user1.getId(), user1.getId());
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () ->userRelationService.unfollow(sameUser));
+        assertThrows(UserException.class, () ->userRelationService.unfollow(sameUser));
     }
 }
