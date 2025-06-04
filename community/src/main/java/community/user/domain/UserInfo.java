@@ -1,5 +1,6 @@
 package community.user.domain;
 
+import community.common.domain.exception.userException.UserException;
 import lombok.Getter;
 
 @Getter
@@ -9,7 +10,7 @@ public class UserInfo {
 
     public UserInfo(String name, String profileImageUrl) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
+            throw UserException.userNameRequiredException();
         }
 
         this.name = name;

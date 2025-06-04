@@ -1,5 +1,6 @@
 package community.user.application.service;
 
+import community.common.domain.exception.userException.UserException;
 import community.user.application.dto.FollowUserRequestDto;
 import community.user.application.interfaces.UserRelationRepository;
 import community.user.domain.User;
@@ -26,7 +27,7 @@ public class UserRelationService {
         User targetUser = userService.getUser(dto.targetUserId());
 
         if (userRelationRepository.isAlreadyFollow(user, targetUser)) {
-            throw new IllegalArgumentException();
+            throw UserException.targetUserAlreadyFollowed();
         }
 
         user.follow(targetUser);
@@ -38,7 +39,7 @@ public class UserRelationService {
         User targetUser = userService.getUser(dto.targetUserId());
 
         if (!userRelationRepository.isAlreadyFollow(user, targetUser)) {
-            throw new IllegalArgumentException();
+            throw UserException.targetUserNotAlreadyFollowed();
         }
 
         user.unfollow(targetUser);

@@ -1,6 +1,7 @@
 package community.user.domain;
 
 import community.common.IntegerRelationCounter;
+import community.common.domain.exception.userException.UserException;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class User {
 
     public void follow(User targetUser) {
         if(targetUser.equals(this)) {
-            throw new IllegalArgumentException("Cannot follow self");
+            throw UserException.userSelfFollowNotAllowed();
         }
         followingCount.increase();
         targetUser.followerCountIncrease();
@@ -36,7 +37,7 @@ public class User {
 
     public void unfollow(User targetUser) {
         if(targetUser.equals(this)) {
-            throw new IllegalArgumentException("Cannot unfollow self");
+            throw UserException.userSelfUnfollowNotAllowed();
         }
         followingCount.decrease();
         targetUser.followerCountDecrease();
