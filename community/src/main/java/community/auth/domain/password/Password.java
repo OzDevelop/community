@@ -8,10 +8,6 @@ public class Password {
     private final String encryptedPassword;
 
     public static Password createEncryptedPassword(String password) {
-        if(password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-
         PasswordValidator.validate(password);
 
         return new Password(SHA256.encrypt(password));
