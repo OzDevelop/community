@@ -1,5 +1,6 @@
 package community.post.application;
 
+import community.common.domain.exception.postException.PostNotExistException;
 import community.post.application.dto.CreatePostRequestDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdatePostRequestDto;
@@ -49,7 +50,7 @@ public class PostService {
         Post post = postRepository.findById(postId);
 
         if (post == null) {
-            throw new IllegalArgumentException("Post does not exist");
+            throw new PostNotExistException();
         }
 
         commentRepository.deleteAllByPostId(postId);

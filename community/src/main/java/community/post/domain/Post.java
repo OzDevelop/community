@@ -1,6 +1,8 @@
 package community.post.domain;
 
 import community.common.IntegerRelationCounter;
+import community.common.domain.exception.postException.SelfLikeNotAllowedException;
+import community.common.domain.exception.postException.UnauthorizedPostUpdateException;
 import community.post.domain.content.Content;
 import community.post.domain.content.PostContent;
 import community.post.domain.content.PostPublicationState;
@@ -50,7 +52,7 @@ public class Post {
     // 좋아요
     public void like(User user) {
         if(this.author.equals(user)) {
-            throw new IllegalArgumentException("자신의 글에는 좋아요를 누를 수 없습니다.");
+            throw new SelfLikeNotAllowedException();
         }
         likeCount.increase();
 
@@ -64,7 +66,7 @@ public class Post {
     // Post 업데이트
     public void updatePost(User user, String updateContent, PostPublicationState state) {
         if(!this.author.equals(user)) {
-            throw new IllegalArgumentException("자신의 글에는 좋아요를 취소할 수 없습니다.");
+            throw new UnauthorizedPostUpdateException();
         }
         this.state = state;
         this.content.updateContent(updateContent);

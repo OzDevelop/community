@@ -2,6 +2,10 @@ package community.post.domain.content;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.common.domain.exception.postException.CommentRequiredContentException;
+import community.common.domain.exception.postException.PostContentRequiredException;
+import community.common.domain.exception.postException.PostMaximumContentLengthException;
+import community.common.domain.exception.postException.PostMinimumContentLengthException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -25,7 +29,7 @@ class PostContentTest {
         String content = koreanContent.repeat(501);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
+        assertThrows(PostMaximumContentLengthException.class, () -> new PostContent(content));
     }
 
     @Test
@@ -34,13 +38,13 @@ class PostContentTest {
         String content = "abcd";
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
+        assertThrows(PostMinimumContentLengthException.class, () -> new PostContent(content));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void givenContentLengthIsEmptyAndNullLimitCreatePostContentThenThrowError(String content) {
-        assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
+        assertThrows(PostContentRequiredException.class, () -> new PostContent(content));
     }
 
     @Test
@@ -51,7 +55,7 @@ class PostContentTest {
 
         // when, then
         String overLimitContent = "a".repeat(501);
-        assertThrows(IllegalArgumentException.class, () -> postContent.updateContent(overLimitContent));
+        assertThrows(PostMaximumContentLengthException.class, () -> postContent.updateContent(overLimitContent));
     }
 
 
@@ -63,6 +67,6 @@ class PostContentTest {
         PostContent postContent = new PostContent(content);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> postContent.updateContent(nullOrEmptyContent));
+        assertThrows(PostContentRequiredException.class, () -> postContent.updateContent(nullOrEmptyContent));
     }
 }

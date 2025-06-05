@@ -10,6 +10,27 @@ public enum ErrorCode {
     NOT_FOUND(404, "Not found data"),
     INTERNAL_ERROR(500, "Unexpected error"),
 
+    /** User Exception
+     */
+    USER_NAME_REQUIRED(400 , "사용자 이름은 공백일 수 없습니다."),
+    USER_SELF_FOLLOW_NOT_ALLOWED(400, "사용자는 자신을 팔로우할 수 없습니다."),
+    USER_SELF_UNFOLLOW_NOT_ALLOWED(400, "사용자는 자신을 언팔로우할 수 없습니다."),
+
+    TARGET_USER_ALREADY_FOLLOWED(409, "대상 사용자를 이미 팔로우하고 있습니다."),
+    TARGET_USER_NOT_ALREADY_FOLLOWED(409, "대상 사용자를 팔로우하고 있지 않습니다."),
+
+
+    /** Post Exception
+     */
+    SELF_LIKE_NOT_ALLOWED(400, "자신의 글에는 좋아요를 누를 수 없습니다."),
+    UNAUTHORIZED_POST_UPDATE(401, "직접 작성한 글만 수정할 수 있습니다." ),
+    POST_NOT_EXIST(404, "존재하지 않는 게시글입니다."),
+    POST_AUTHOR_REQUIRED(400, "글 작성자는 공백일 수 없습니다."),
+    POST_CONTENT_REQUIRED(400, "게시글은 공백일 수 없습니다."),
+    POST_MAXIMUM_CONTENT_LENGTH(400, "게시글은 최대 500자까지 작성할 수 있습니다."),
+    POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최소 5자 이상 작성되어야 합니다."),
+    COMMENT_REQUIRED_CONTENT(400, "댓글은 공백일 수 없습니다."),
+    COMMENT_MAXIMUM_CONTENT_LENGTH(400, "댓글은 최대 100자까지 작성할 수 있습니다."),
 
     /**  Email Exception
      */
@@ -22,6 +43,7 @@ public enum ErrorCode {
 
     /** Password Exception
      */
+    PASSWORD_REQUIRED(400, "비밀번호는 공백일 수 없습니다."),
     PASSWORD_NOT_CONTAIN_SPACE(400, "비밀번호는 공백을 포함할 수 없습니다."),
     PASSWORD_COMPLEXITY(400, "비밀번호는 영문, 숫자, 특수문자 중 최소 2종류를 포함해야 합니다."),
     PASSWORD_REPEAT(400, "같은 문자를 3번 이상 반복할 수 없습니다."),

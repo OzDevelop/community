@@ -4,10 +4,14 @@ import community.common.domain.exception.passwordException.EmptySpacePasswordExc
 import community.common.domain.exception.passwordException.PasswordComplexityException;
 import community.common.domain.exception.passwordException.PasswordInvalidLengthException;
 import community.common.domain.exception.passwordException.PasswordRepeatException;
+import community.common.domain.exception.passwordException.PasswordRequiredException;
 import community.common.domain.exception.passwordException.PasswordSequenceException;
 
 public class PasswordValidator {
     protected static void validate(String password) {
+        if(password == null || password.isEmpty()) {
+            throw new PasswordRequiredException();
+        }
         if(password.length() < 8 || password.length() > 16) {
             throw new PasswordInvalidLengthException();
         }

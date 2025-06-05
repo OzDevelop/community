@@ -1,5 +1,6 @@
 package community.post.repository;
 
+import community.common.domain.exception.postException.PostAuthorRequiredException;
 import community.post.application.interfaces.PostRepository;
 import community.post.application.interfaces.UserPostQueueCommandRepository;
 import community.post.domain.Post;
@@ -21,7 +22,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Transactional
     public Post save(Post post) {
         if (post.getAuthor() == null) {
-            throw new IllegalArgumentException("Author cannot be null");
+            throw new PostAuthorRequiredException();
         }
 
         PostEntity postEntity = new PostEntity(post);
