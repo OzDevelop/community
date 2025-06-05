@@ -27,7 +27,7 @@ public class LoginAcceptanceTest extends AcceptanceTestTemplate {
 
     @Test
     void givenEmailAndPasswordWhenLoginThenToken() {
-        LoginRequestDto dto = new LoginRequestDto(email, "password");
+        LoginRequestDto dto = new LoginRequestDto(email, "11@Commu!!");
 
         String token = requestLoginGetToken(dto);
 
