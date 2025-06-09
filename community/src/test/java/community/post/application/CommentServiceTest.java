@@ -27,7 +27,7 @@ class CommentServiceTest {
     CreatePostRequestDto postRequestDto = new CreatePostRequestDto(user.getId(), "this is test Content", PostPublicationState.PUBLIC);
 
     private final Post post = postService.createPost(postRequestDto);
-    private final CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), "this is test Content" );
+    private final CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), "this is test Content", null );
 
     private final String commentContentText = "this is test Content";
 
