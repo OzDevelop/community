@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FeedController {
     private final UserPostQueueQueryRepository userPostQueueQueryRepository;
-    private final TokenProvider tokenProvider;
 
     @GetMapping
     public Response<List<GetPostContentResponseDto>> getPostFeedList(
@@ -34,5 +33,4 @@ public class FeedController {
 
         return Response.ok(contentResponse);
     }
-
 }
