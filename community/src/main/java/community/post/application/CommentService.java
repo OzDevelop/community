@@ -35,7 +35,12 @@ public class CommentService {
         Post post = postService.getPost(dto.postId());
         User author = userService.getUser(dto.authorId());
 
-        Comment comment = new Comment(null, post, author, dto.content());
+        Comment parent = null;
+        if (dto.parentCommentId() != null) {
+            parent = commentRepository.findById(dto.parentCommentId());
+        }
+
+        Comment comment = new Comment(null, post, author, dto.content(), parent);
 
         return commentRepository.save(comment);
     }
