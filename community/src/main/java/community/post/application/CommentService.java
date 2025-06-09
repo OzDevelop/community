@@ -1,5 +1,7 @@
 package community.post.application;
 
+import static community.common.domain.comment.CommentTreeBuilder.commentBuilddTree;
+
 import community.post.application.dto.CreateCommentRequestDto;
 import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.dto.LikeRequestDto;
@@ -10,7 +12,10 @@ import community.post.domain.Post;
 import community.post.domain.comment.Comment;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,7 +84,9 @@ public class CommentService {
     }
 
     public List<GetCommentListResponseDto> getCommnetList(Long postId) {
-        return commentRepository.getCommentList(postId);
+        List<GetCommentListResponseDto> flatList = commentRepository.getCommentList(postId);
+
+        return commentBuilddTree(flatList);
     }
 
     public void deleteComment(Long commentId) {
