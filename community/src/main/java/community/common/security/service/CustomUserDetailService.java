@@ -1,9 +1,8 @@
-package community.common.config;
+package community.common.security.service;
 
 import community.auth.application.interfaces.UserAuthRepository;
 import community.auth.domain.UserAuth;
-import community.user.repository.entity.UserEntity;
-import community.user.repository.jpa.JpaUserRepository;
+import community.common.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

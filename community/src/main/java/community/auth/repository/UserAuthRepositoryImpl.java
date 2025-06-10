@@ -60,4 +60,25 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
         return jpaUserAuthRepository.findByUserId(userId)
                 .map(UserAuthEntity::toUserAuth);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<UserAuth> findByEmail(String email) {
+        return jpaUserAuthRepository.findByEmail(email)
+                .map(UserAuthEntity::toUserAuth);
+    }
+
+    @Override
+    @Transactional
+    public UserAuth registerOauthUser(String email, String name, String profileImageUrl) {
+        User user = new User(name, profileImageUrl);
+        User savedUser = userRepository.save(user);
+
+        // OAuth2는 password 없이 생성하므로 "" 또는 null 허용 필요 (도메인에서 허용 설정 필요)
+        UserAuth userAuth = new UserAuth(email, "USER"); // 기본 USER 권한
+        UserAuthEntity entity = UserAuthEntity.of(userAuth, savedUser.getId());
+        entity = jpaUserAuthRepository.save(entity);
+
+        return entity.toUserAuth();
+    }
 }

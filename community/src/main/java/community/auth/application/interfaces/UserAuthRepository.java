@@ -11,7 +11,8 @@ public interface UserAuthRepository {
 
     boolean existsByEmail(Email email);
 
-
     Optional<UserAuth> findByUserId(Long userId);
+    Optional<UserAuth> findByEmail(String email);
+    UserAuth registerOauthUser(String email, String name, String profileImageUrl);
 
 }

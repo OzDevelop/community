@@ -1,7 +1,7 @@
 package community.common.security;
 
-import community.auth.domain.TokenProvider;
-import community.common.config.CustomUserDetailService;
+import community.auth.domain.token.TokenProvider;
+import community.common.security.service.CustomUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
