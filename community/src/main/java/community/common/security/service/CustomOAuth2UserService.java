@@ -4,13 +4,16 @@ import community.auth.application.interfaces.UserAuthRepository;
 import community.auth.domain.UserAuth;
 import community.common.security.CustomOAuth2User;
 import community.common.security.dto.OAuthUserProfileResponseDto;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -22,27 +25,33 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 기본 사용자 정보 불러오기
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        // 사용자 속성
-//        Map<String, Object> attributes = oAuth2User.getAttributes();
-//        String email = (String) attributes.get("email");
-//        String name = (String) attributes.get("name");
-//        String picture = (String) attributes.get("picture");
-//
-//        UserAuth userAuth = userAuthRepository.findByEmail(email)
-//                .orElseGet(() -> userAuthRepository.registerOauthUser(email, name, picture));
-
         OAuthUserProfileResponseDto profile = UserFactory.create(userRequest, oAuth2User);
-        UserAuth tempUserAuth = profile.userAuth();
+        String email = profile.userAuth().getEmail();
 
-        UserAuth userAuth = userAuthRepository.findByEmail(tempUserAuth.getEmail())
-                .orElseGet(() -> userAuthRepository.registerOauthUser(
-                        tempUserAuth.getEmail(),
-                        profile.name(),
-                        profile.profileUrl()
-                ));
+         Optional<UserAuth> optionalUser = userAuthRepository.findByEmail(email);
+
+         UserAuth userAuth;
+
+//        UserAuth userAuth = userAuthRepository.findByEmail(email)
+//                .orElseGet(() -> userAuthRepository.registerOauthUser(
+//                        email,
+//                        profile.name(),
+//                        profile.profileUrl()
+//                ));
+
+        if(optionalUser.isPresent()) {
+             userAuth = optionalUser.get();
+         } else {
+             userAuth = userAuthRepository.registerOauthUser(
+                     email,
+                     profile.name(),
+                     profile.profileUrl()
+             );
+         }
+
+        log.info("OAuth 로그인: {} ({})", email, optionalUser.isPresent() ? "재로그인" : "최초 로그인");
 
         // OAuth2User 반환 (SecurityContext에 저장될 사용자)
         return new CustomOAuth2User(userAuth);
     }
-
 }
