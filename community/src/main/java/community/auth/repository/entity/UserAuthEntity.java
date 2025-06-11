@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "community_user_auth")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+
 @Getter
 public class UserAuthEntity extends TimeBaseEntity {
 

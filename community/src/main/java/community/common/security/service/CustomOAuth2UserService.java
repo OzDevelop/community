@@ -3,7 +3,7 @@ package community.common.security.service;
 import community.auth.application.interfaces.UserAuthRepository;
 import community.auth.domain.UserAuth;
 import community.common.security.CustomOAuth2User;
-import java.util.Map;
+import community.common.security.dto.OAuthUserProfileResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -23,15 +23,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         // 사용자 속성
-        Map<String, Object> attributes = oAuth2User.getAttributes();
-        String email = (String) attributes.get("email");
-        String name = (String) attributes.get("name");
-        String picture = (String) attributes.get("picture");
+//        Map<String, Object> attributes = oAuth2User.getAttributes();
+//        String email = (String) attributes.get("email");
+//        String name = (String) attributes.get("name");
+//        String picture = (String) attributes.get("picture");
+//
+//        UserAuth userAuth = userAuthRepository.findByEmail(email)
+//                .orElseGet(() -> userAuthRepository.registerOauthUser(email, name, picture));
 
-        UserAuth userAuth = userAuthRepository.findByEmail(email)
-                .orElseGet(() -> userAuthRepository.registerOauthUser(email, name, picture));
+        OAuthUserProfileResponseDto profile = UserFactory.create(userRequest, oAuth2User);
+        UserAuth tempUserAuth = profile.userAuth();
+
+        UserAuth userAuth = userAuthRepository.findByEmail(tempUserAuth.getEmail())
+                .orElseGet(() -> userAuthRepository.registerOauthUser(
+                        tempUserAuth.getEmail(),
+                        profile.name(),
+                        profile.profileUrl()
+                ));
 
         // OAuth2User 반환 (SecurityContext에 저장될 사용자)
         return new CustomOAuth2User(userAuth);
     }
+
 }
