@@ -23,8 +23,9 @@ public class Comment {
     private final User author;
     private final Content content;
     private final IntegerRelationCounter likeCount;
+    private final Comment parent;
 
-    public Comment(Long id, Post post, User author, Content content, IntegerRelationCounter likeCount) {
+    public Comment(Long id, Post post, User author, Content content, IntegerRelationCounter likeCount, Comment parent) {
         if (post == null) {
             throw new PostNotExistException();
         }
@@ -40,11 +41,17 @@ public class Comment {
         this.author = author;
         this.content = content;
         this.likeCount = likeCount;
+        this.parent = parent;
     }
 
-    public Comment(Long id, Post post, User author, String content) {
-        this(id, post, author, new CommentContent(content), new IntegerRelationCounter());
+    public Comment(Long id, Post post, User author, String content, Comment comment) {
+        this(id, post, author, new CommentContent(content), new IntegerRelationCounter(), comment);
     }
+
+    public static Comment createReply(Post post, User author, String content, Comment parent) {
+        return new Comment(null, post, author, new CommentContent(content), new IntegerRelationCounter(), parent);
+    }
+
 
     public void like(User user) {
         if(author.equals(user)) {
