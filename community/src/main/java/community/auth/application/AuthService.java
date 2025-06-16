@@ -48,4 +48,8 @@ public class AuthService {
 
         return new UserAccessTokenResponseDto(token);
     }
+
+    public String createTokenForOAuthUser(Long userId, String role) {
+        return tokenProvider.createToken(userId, role);
+    }
 }

@@ -13,6 +13,10 @@ public class Password {
         return new Password(SHA256.encrypt(password));
     }
 
+    public static Password createOauthPassword() {
+        return new Password("");
+    }
+
     public boolean matchPassword(String password) {
         return encryptedPassword.equals(SHA256.encrypt(password));
     }

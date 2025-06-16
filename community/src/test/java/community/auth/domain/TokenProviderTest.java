@@ -20,7 +20,7 @@ class TokenProviderTest {
 
         assertNotNull(token);
         assertEquals(userId, tokenProvider.getUserId(token));
-        assertEquals(role, tokenProvider.getRole(token));
+        assertEquals(role, tokenProvider.getUserRole(token));
     }
 
     @Test
