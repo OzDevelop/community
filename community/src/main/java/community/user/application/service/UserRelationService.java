@@ -1,5 +1,6 @@
 package community.user.application.service;
 
+import community.common.SecurityUtil;
 import community.common.domain.exception.userException.UserException;
 import community.user.application.dto.FollowUserRequestDto;
 import community.user.application.interfaces.UserRelationRepository;
@@ -23,7 +24,9 @@ public class UserRelationService {
 
     //TODO - follow(), unfollow()
     public void follow(FollowUserRequestDto dto) {
-        User user = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+        User user = userService.getUser(currentUserId);
         User targetUser = userService.getUser(dto.targetUserId());
 
         if (userRelationRepository.isAlreadyFollow(user, targetUser)) {
@@ -35,7 +38,9 @@ public class UserRelationService {
     }
 
     public void unfollow(FollowUserRequestDto dto) {
-        User user = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+        User user = userService.getUser(currentUserId);
         User targetUser = userService.getUser(dto.targetUserId());
 
         if (!userRelationRepository.isAlreadyFollow(user, targetUser)) {
