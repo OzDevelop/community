@@ -12,6 +12,7 @@ import community.post.domain.Post;
 import community.user.domain.User;
 import community.user.application.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostService {
@@ -50,6 +51,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    @Transactional
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId);
 
