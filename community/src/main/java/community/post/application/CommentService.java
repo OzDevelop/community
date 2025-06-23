@@ -2,6 +2,7 @@ package community.post.application;
 
 import static community.common.domain.comment.CommentTreeBuilder.commentBuilddTree;
 
+import community.common.SecurityUtil;
 import community.post.application.dto.CreateCommentRequestDto;
 import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.dto.LikeRequestDto;
@@ -37,8 +38,11 @@ public class CommentService {
 
     @Transactional
     public Comment createComment(CreateCommentRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+
         Post post = postService.getPost(dto.postId());
-        User author = userService.getUser(dto.authorId());
+        User author = userService.getUser(currentUserId);
 
         Comment parent = null;
         if (dto.parentCommentId() != null) {
@@ -51,8 +55,10 @@ public class CommentService {
     }
 
     public Comment updateComment(Long commentId, UpdateCommentRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Comment comment = commentRepository.findById(commentId);
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         comment.updateComment(user, dto.content());
 
@@ -60,8 +66,10 @@ public class CommentService {
     }
 
     public void likeComment(LikeRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Comment comment = commentRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(comment, user)) {
             return;
@@ -73,8 +81,10 @@ public class CommentService {
     }
 
     public void unlikeComment(LikeRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Comment comment = commentRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(comment, user)) {
             comment.unlike();

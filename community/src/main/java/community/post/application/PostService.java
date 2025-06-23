@@ -1,5 +1,6 @@
 package community.post.application;
 
+import community.common.SecurityUtil;
 import community.common.domain.exception.postException.PostNotExistException;
 import community.post.application.dto.CreatePostRequestDto;
 import community.post.application.dto.GetPostContentResponseDto;
@@ -33,7 +34,8 @@ public class PostService {
 
 
     public Post createPost(CreatePostRequestDto dto) {
-        User author = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+        User author = userService.getUser(currentUserId);
 
         Post post = Post.createPost(null, author, dto.content(), dto.state());
 
@@ -41,8 +43,10 @@ public class PostService {
     }
 
     public Post updatePost(Long postId, UpdatePostRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Post post = postRepository.findById(postId);
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         post.updatePost(user, dto.content(), dto.state());
 
@@ -68,8 +72,10 @@ public class PostService {
     }
 
     public void likePost(LikeRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Post post = postRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(user, post)) {
             return;
@@ -82,8 +88,10 @@ public class PostService {
 
 
     public void unlikePost(LikeRequestDto dto) {
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
         Post post = postRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(user, post)) {
             post.unlike();

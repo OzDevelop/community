@@ -1,5 +1,6 @@
 package community.post.ui;
 
+import community.common.SecurityUtil;
 import community.common.security.CustomUserDetails;
 import community.common.ui.Response;
 import community.post.application.dto.GetPostContentResponseDto;
@@ -20,12 +21,11 @@ public class FeedController {
 
     @GetMapping
     public Response<List<GetPostContentResponseDto>> getPostFeedList(
-            @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestParam(required = false) Long lastPostId) {
 
-        Long userId = userDetails.getUserId();
+        Long currentUserId = SecurityUtil.getCurrentUserId();
 
-        List<GetPostContentResponseDto> contentResponse = userPostQueueQueryRepository.getContentResponse(userId, lastPostId);
+        List<GetPostContentResponseDto> contentResponse = userPostQueueQueryRepository.getContentResponse(currentUserId, lastPostId);
 
         return Response.ok(contentResponse);
     }

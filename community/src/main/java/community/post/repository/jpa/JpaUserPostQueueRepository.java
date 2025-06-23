@@ -14,4 +14,5 @@ public interface JpaUserPostQueueRepository extends JpaRepository<UserPostQueueE
             + "WHERE u.userId = :userId AND u.authorId = :authorId")
     void deleteAllByUserIdAndAuthorId(@Param("userId") Long userId, @Param("authorId") Long authorId);
 
+    void deleteAllByPostId(Long postId);
 }

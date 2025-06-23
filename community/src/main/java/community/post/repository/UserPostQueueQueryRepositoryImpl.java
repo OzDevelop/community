@@ -51,7 +51,7 @@ public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepos
                        hasLastData(lastContentId)
                 )
                 .orderBy(userPostQueueEntity.postId.desc())
-                .limit(20)
+                .limit(5)
                 .fetch();
     }
 
