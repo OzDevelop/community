@@ -8,6 +8,8 @@ import community.auth.application.interfaces.UserAuthRepository;
 import community.auth.domain.Email;
 import community.auth.domain.token.TokenProvider;
 import community.auth.domain.UserAuth;
+import community.common.domain.exception.emailException.AlreadyVerifiedEmailException;
+import community.common.domain.exception.emailException.EmailNotVerifiedException;
 import community.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,11 @@ public class AuthService {
         Email email = Email.createEmail(dto.email());
 
         if(userAuthRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+            throw new AlreadyVerifiedEmailException();
         }
 
         if(!emailVerificationRepository.isEmailVerified(email)) {
-            throw new IllegalArgumentException("인증되지 않은 이메일입니다.");
+            throw new EmailNotVerifiedException();
         }
 
         UserAuth userAuth = new UserAuth(dto.email(), dto.password(), dto.role());
@@ -45,5 +47,9 @@ public class AuthService {
         String token = tokenProvider.createToken(userAuth.getUserId(), userAuth.getUserRole());
 
         return new UserAccessTokenResponseDto(token);
+    }
+
+    public String createTokenForOAuthUser(Long userId, String role) {
+        return tokenProvider.createToken(userId, role);
     }
 }

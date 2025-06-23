@@ -11,17 +11,29 @@ import community.post.domain.content.PostPublicationState;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PostServiceTest {
 
-    private UserService userService = FakeObjectFactory.getUserService();
-    private PostService postService = FakeObjectFactory.getPostService();
+    private UserService userService;
+    private PostService postService;
 
-    private final User user = userService.createUser(new CreateUserRequestDto("testUser", ""));
-    private final User otherUser = userService.createUser(new CreateUserRequestDto("testTargetUser", ""));
+    private User user;
+    private User otherUser;
 
-    CreatePostRequestDto dto =  new CreatePostRequestDto(user.getId(), "test Content", PostPublicationState.PUBLIC);
+    CreatePostRequestDto dto;
+
+    @BeforeEach
+    void setUp() {
+        userService = FakeObjectFactory.getUserService();
+        postService = FakeObjectFactory.getPostService();
+
+        user = userService.createUser(new CreateUserRequestDto("testUser", ""));
+        otherUser = userService.createUser(new CreateUserRequestDto("testTargetUser", ""));
+        dto = new CreatePostRequestDto(user.getId(), "test Content", PostPublicationState.PUBLIC);
+    }
+
 
     @Test
     void givenPostRequestDto_whenCreatePost_thenReturnPost() {
@@ -39,7 +51,7 @@ public class PostServiceTest {
         Post savedPost = postService.createPost(dto);
 
         // when
-        UpdatePostRequestDto updateDto = new UpdatePostRequestDto(savedPost.getId(), user.getId(), "updated-content", PostPublicationState.PRIVATE);
+        UpdatePostRequestDto updateDto = new UpdatePostRequestDto(savedPost.getAuthor().getId(),"updated-content", PostPublicationState.PRIVATE);
         Post updatedPost = postService.updatePost(savedPost.getId(), updateDto);
 
         // then

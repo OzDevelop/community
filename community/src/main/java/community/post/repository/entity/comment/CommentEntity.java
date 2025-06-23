@@ -4,7 +4,6 @@ import community.common.IntegerRelationCounter;
 import community.common.repository.entity.TimeBaseEntity;
 import community.post.domain.comment.Comment;
 import community.post.domain.content.CommentContent;
-import community.post.domain.content.Content;
 import community.post.repository.entity.post.PostEntity;
 import community.user.repository.entity.UserEntity;
 import jakarta.persistence.ConstraintMode;
@@ -19,7 +18,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "community_comment")
@@ -43,12 +41,20 @@ public class CommentEntity extends TimeBaseEntity {
     private String content;
     private Integer likeCount;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_comment_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private CommentEntity parent;
+
     public CommentEntity(Comment comment) {
         this.id = comment.getId();
         this.author = new UserEntity(comment.getAuthor());
         this.post = new PostEntity(comment.getPost());
         this.content = comment.getContentText();
         this.likeCount = comment.getLikeCount();
+
+        if (comment.getParent() != null) {
+            this.parent = new CommentEntity(comment.getParent());
+        }
     }
 
     public Comment toComment() {
@@ -58,6 +64,7 @@ public class CommentEntity extends TimeBaseEntity {
                 .post(post.toPost())
                 .content(new CommentContent(content))
                 .likeCount(new IntegerRelationCounter(likeCount))
+                .parent(parent != null ? parent.toComment() : null)
                 .build();
     }
 

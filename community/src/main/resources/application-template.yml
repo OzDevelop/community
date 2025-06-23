@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        open-in-view: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GOOGLE_SMTP_USERNAME}
+    password: ${GOOGLE_SMTP_PASSWORD}
+    properties:
+      mail:
+        # SMTP sending time setting(timeou과 관련된 세팅으로 필수적이지 않음)
+        smtp:
+          auth: true              # 사용자 인증 여부
+          timeout: 5000           # 이메일 전송 타임아웃 시간
+          starttls:
+            enable: true          # TLS를 통해 안전한 통신 사용 여부
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+
+secret-key: ${SECRET_KEY}

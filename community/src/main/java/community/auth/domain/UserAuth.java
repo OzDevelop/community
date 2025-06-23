@@ -21,6 +21,13 @@ public class UserAuth {
         this.role = UserRole.valueOf(role);
     }
 
+    // OAuth 로그인
+    public UserAuth(String email, String role) {
+        this.email = Email.createEmail(email);
+        this.password = Password.createOauthPassword();
+        this.role = UserRole.valueOf(role);
+    }
+
     public Long getUserId() {
         return userId;
     }

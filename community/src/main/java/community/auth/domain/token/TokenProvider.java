@@ -44,13 +44,22 @@ public class TokenProvider {
                 .getSubject()
         );
     }
-
-    public String getRole(String token) {
+    public String getUserRole(String token) {
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
                 .get("role", String.class);
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+            return true;
+        } catch (Exception e) {
+            System.out.println("JWT 검증 실패: " + e.getMessage()); // Custom Exception ㅊㅜㄱㅏ
+            return false;
+        }
     }
 }

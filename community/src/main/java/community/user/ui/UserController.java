@@ -1,6 +1,8 @@
 package community.user.ui;
 
 import community.common.ui.Response;
+import community.post.application.PostService;
+import community.post.application.dto.GetPostContentResponseDto;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.application.dto.GetUserListResponseDto;
 import community.user.application.dto.GetUserResponseDto;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
     private final JpaUserListQueryRepository jpaUserListQueryRepository;
 
     @PostMapping
@@ -33,6 +36,13 @@ public class UserController {
     @GetMapping("/{userId}")
     public Response<GetUserResponseDto> getUserProfile(@PathVariable(name = "userId") Long userId) {
         return Response.ok(userService.getUserProfile(userId));
+    }
+
+    @GetMapping("/posts/{userId}")
+    public Response<List<GetPostContentResponseDto>> getPostContent(@PathVariable Long userId) {
+        List<GetPostContentResponseDto> contentResponse = postService.getUserPostList(userId);
+
+        return Response.ok(contentResponse);
     }
 
     @GetMapping("/{userId}/following")

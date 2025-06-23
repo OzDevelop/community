@@ -10,6 +10,7 @@ import community.auth.application.dto.SendEmailRequestDto;
 import community.user.application.dto.FollowUserRequestDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,8 +30,6 @@ public class DataLoader {
             createUser(email);
         }
 
-
-
         followUser(new FollowUserRequestDto(1L, 2L));
         followUser(new FollowUserRequestDto(1L, 3L));
     }
@@ -44,11 +43,22 @@ public class DataLoader {
         requestVerifyEmail(email, token);
         requestRegisterEmail(new CreateUserAuthRequestDto(
                 email ,
-                "password",
+                "11@Commu!!",
                 "USER",
                 "test",
                 ""
         ));
+
+
+        List<Object[]> results = em.createQuery(
+                "SELECT e.email, e.token, e.isVerified FROM EmailVerificationEntity e", Object[].class
+        ).getResultList();
+
+        System.out.println("📩 현재 DB에 저장된 인증 정보:");
+        for (Object[] row : results) {
+            System.out.println(" - 이메일: " + row[0] + ", 토큰: " + row[1] + ", 인증됨: " + row[2]);
+        }
+
     }
 
     protected String getEmailToken(String email) {
@@ -69,5 +79,4 @@ public class DataLoader {
                 .setParameter("email", email)
                 .getSingleResult();
     }
-
 }

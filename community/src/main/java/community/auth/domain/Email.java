@@ -1,5 +1,7 @@
 package community.auth.domain;
 
+import community.common.domain.exception.emailException.EmailValidException;
+import community.common.domain.exception.emailException.EmptyEmailException;
 import java.util.regex.Pattern;
 
 public class Email {
@@ -15,12 +17,13 @@ public class Email {
 
     public static Email createEmail(String email) {
         if(email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be null or empty");
+            throw new EmptyEmailException();
         }
 
         if(isNotValidEmail(email)) {
-            throw new IllegalArgumentException("Email is not valid");
+            throw new EmailValidException();
         }
+
 
         return new Email(email);
     }

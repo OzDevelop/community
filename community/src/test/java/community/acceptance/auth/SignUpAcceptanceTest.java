@@ -65,7 +65,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         Integer code = requestVerifyEmail(email, "wrong token");
 
         boolean isEmailVerified = isEmailVerified(email);
-        assertEquals(500, code);
+        assertEquals(400, code);
         assertFalse(isEmailVerified);
     }
 
@@ -75,7 +75,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         String token = getEmailToken(email);
         requestVerifyEmail(email, token);
 
-        CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto(email, "password", "USER", "name", "");
+        CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto(email, "11@commu@#", "USER", "name", "");
         Integer code = requestRegisterEmail(dto);
 
         assertEquals(0, code);

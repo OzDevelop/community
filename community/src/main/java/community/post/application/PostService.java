@@ -1,6 +1,8 @@
 package community.post.application;
 
+import community.common.domain.exception.postException.PostNotExistException;
 import community.post.application.dto.CreatePostRequestDto;
+import community.post.application.dto.GetPostContentResponseDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdatePostRequestDto;
 import community.post.application.interfaces.CommentRepository;
@@ -9,7 +11,9 @@ import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostService {
@@ -45,19 +49,22 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    @Transactional
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId);
 
         if (post == null) {
-            throw new IllegalArgumentException("Post does not exist");
+            throw new PostNotExistException();
         }
 
         commentRepository.deleteAllByPostId(postId);
         likeRepository.deleteAllByPostId(postId);
 
         postRepository.delete(post);
+    }
 
-
+    public List<GetPostContentResponseDto> getUserPostList(Long userId) {
+        return postRepository.findAllPostsByUserId(userId);
     }
 
     public void likePost(LikeRequestDto dto) {

@@ -2,6 +2,8 @@ package community.post.domain.comment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.common.domain.exception.postException.CommentMaximumContentLengthException;
+import community.common.domain.exception.postException.SelfLikeNotAllowedException;
 import community.post.domain.Post;
 import community.post.domain.content.PostContent;
 import community.user.domain.User;
@@ -14,7 +16,7 @@ class CommentTest {
     private final User otherUser = new User(2L, new UserInfo("otherUser", ""));
 
     private final Post post = new Post(1L, user, new PostContent("test Content"));
-    private final Comment comment = new Comment(1L, post, user, "comment test");
+    private final Comment comment = new Comment(1L, post, user, "comment test", null);
 
     @Test
     void givenCommentWhenLikeThenIncreaseLikeCount1() {
@@ -25,7 +27,7 @@ class CommentTest {
 
     @Test
     void givenCommentWhenLikeBySameUserThenLikeCountShouldThrowError() {
-        assertThrows(IllegalArgumentException.class, () -> comment.like(user));
+        assertThrows(SelfLikeNotAllowedException.class, () -> comment.like(user));
     }
 
     @Test
@@ -57,7 +59,7 @@ class CommentTest {
     void givenCommentWhenUpdateContentOver100ThenThrowError() {
         String newContent = "a".repeat(101);
 
-        assertThrows(IllegalArgumentException.class, () -> comment.updateComment(user, newContent));
+        assertThrows(CommentMaximumContentLengthException.class, () -> comment.updateComment(user, newContent));
     }
 
 

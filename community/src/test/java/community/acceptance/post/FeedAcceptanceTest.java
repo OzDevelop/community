@@ -27,7 +27,7 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
     @BeforeEach
     void setup() {
         super.setUp();
-         token = requestLoginGetToken(new LoginRequestDto("user1@test.com", "password"));
+         token = requestLoginGetToken(new LoginRequestDto("user1@test.com", "11@Commu!!"));
         System.out.println("setUp 짱짱 잘된다!");
     }
 

@@ -2,6 +2,7 @@ package community.user.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.common.domain.exception.userException.UserException;
 import org.junit.jupiter.api.Test;
 
 class UserInfoTest {
@@ -24,6 +25,6 @@ class UserInfoTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> new UserInfo(name, profileImage));
+        assertThrows(UserException.class, () -> new UserInfo(name, profileImage));
     }
 }
