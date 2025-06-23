@@ -1,12 +1,14 @@
 package community.post.repository;
 
 import community.common.domain.exception.postException.PostAuthorRequiredException;
+import community.post.application.dto.GetPostContentResponseDto;
 import community.post.application.interfaces.PostRepository;
 import community.post.application.interfaces.UserPostQueueCommandRepository;
 import community.post.domain.Post;
 import community.post.repository.entity.post.PostEntity;
 import community.post.repository.jpa.JpaPostRepository;
 import community.post.repository.jpa.JpaUserPostQueueRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +55,11 @@ public class PostRepositoryImpl implements PostRepository {
         PostEntity postEntity = new PostEntity(post);
         jpaUserPostQueueRepository.deleteAllByPostId(postEntity.getId());
         jpaPostRepository.delete(postEntity);
+    }
+
+
+    @Override
+    public List<GetPostContentResponseDto> findAllPostsByUserId(Long userId) {
+        return jpaPostRepository.findAllPostsByUserId(userId);
     }
 }
