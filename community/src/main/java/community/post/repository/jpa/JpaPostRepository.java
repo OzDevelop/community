@@ -21,6 +21,9 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
             + "WHERE p.author.id = :authorId")
     List<Long> findAllPostIdsByAuthor(Long authorId);
 
+    @Query("SELECT p FROM PostEntity p WHERE p.author.id = :authorId")
+    List<PostEntity> findAllPostsByAuthorId(Long authorId);
+
     @Query("""
     select new community.post.application.dto.GetPostContentResponseDto(
         p.id,
