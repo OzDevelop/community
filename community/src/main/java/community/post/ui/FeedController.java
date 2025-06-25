@@ -21,11 +21,13 @@ public class FeedController {
 
     @GetMapping
     public Response<List<GetPostContentResponseDto>> getPostFeedList(
-            @RequestParam(required = false) Long lastPostId) {
+            @RequestParam(required = false) Long lastPostId,
+            @RequestParam(required = false) String keyword
+    ) {
 
         Long currentUserId = SecurityUtil.getCurrentUserId();
 
-        List<GetPostContentResponseDto> contentResponse = userPostQueueQueryRepository.getContentResponse(currentUserId, lastPostId);
+        List<GetPostContentResponseDto> contentResponse = userPostQueueQueryRepository.getContentResponse(currentUserId, lastPostId, keyword);
 
         return Response.ok(contentResponse);
     }

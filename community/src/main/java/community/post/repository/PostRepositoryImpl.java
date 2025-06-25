@@ -54,6 +54,7 @@ public class PostRepositoryImpl implements PostRepository {
     public void delete(Post post) {
         PostEntity postEntity = new PostEntity(post);
         jpaUserPostQueueRepository.deleteAllByPostId(postEntity.getId());
+        commandRepository.deletePost(postEntity);
         jpaPostRepository.delete(postEntity);
     }
 
