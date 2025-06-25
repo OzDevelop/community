@@ -8,6 +8,7 @@ import community.post.repository.entity.comment.CommentEntity;
 import community.post.repository.jpa.JpaCommentRepository;
 import community.post.repository.jpa.JpaPostRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -36,9 +37,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Comment findById(Long id) {
-        CommentEntity commentEntity = jpaCommentRepository.findById(id).orElseThrow();
-        return commentEntity.toComment();
+    public Optional<Comment> findById(Long id) {
+        return jpaCommentRepository.findById(id)
+                .map(CommentEntity::toComment);
     }
 
     @Override

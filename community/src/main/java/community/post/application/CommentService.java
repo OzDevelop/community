@@ -3,6 +3,7 @@ package community.post.application;
 import static community.common.domain.comment.CommentTreeBuilder.commentBuilddTree;
 
 import community.common.SecurityUtil;
+import community.common.domain.exception.postException.CommentNotExistException;
 import community.post.application.dto.CreateCommentRequestDto;
 import community.post.application.dto.GetCommentListResponseDto;
 import community.post.application.dto.LikeRequestDto;
@@ -38,15 +39,12 @@ public class CommentService {
 
     @Transactional
     public Comment createComment(CreateCommentRequestDto dto) {
-        Long currentUserId = SecurityUtil.getCurrentUserId();
-
-
         Post post = postService.getPost(dto.postId());
-        User author = userService.getUser(currentUserId);
+        User author = getCurrentUser();
 
         Comment parent = null;
         if (dto.parentCommentId() != null) {
-            parent = commentRepository.findById(dto.parentCommentId());
+            parent = commentRepository.findById(dto.parentCommentId()).orElseThrow(CommentNotExistException::new);
         }
 
         Comment comment = new Comment(null, post, author, dto.content(), parent);
@@ -55,10 +53,8 @@ public class CommentService {
     }
 
     public Comment updateComment(Long commentId, UpdateCommentRequestDto dto) {
-        Long currentUserId = SecurityUtil.getCurrentUserId();
-
-        Comment comment = commentRepository.findById(commentId);
-        User user = userService.getUser(currentUserId);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotExistException::new);
+        User user = getCurrentUser();
 
         comment.updateComment(user, dto.content());
 
@@ -66,10 +62,8 @@ public class CommentService {
     }
 
     public void likeComment(LikeRequestDto dto) {
-        Long currentUserId = SecurityUtil.getCurrentUserId();
-
-        Comment comment = commentRepository.findById(dto.targetId());
-        User user = userService.getUser(currentUserId);
+        Comment comment = commentRepository.findById(dto.targetId()).orElseThrow(CommentNotExistException::new);
+        User user = getCurrentUser();
 
         if(likeRepository.checkLike(comment, user)) {
             return;
@@ -81,10 +75,8 @@ public class CommentService {
     }
 
     public void unlikeComment(LikeRequestDto dto) {
-        Long currentUserId = SecurityUtil.getCurrentUserId();
-
-        Comment comment = commentRepository.findById(dto.targetId());
-        User user = userService.getUser(currentUserId);
+        Comment comment = commentRepository.findById(dto.targetId()).orElseThrow(CommentNotExistException::new);
+        User user = getCurrentUser();
 
         if(likeRepository.checkLike(comment, user)) {
             comment.unlike(user);
@@ -100,10 +92,13 @@ public class CommentService {
     }
 
     public void deleteComment(Long commentId) {
-        Comment comment = commentRepository.findById(commentId);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotExistException::new);
 
          likeRepository.deleteAllByCommentId(commentId);
-
          commentRepository.delete(comment);
+    }
+
+    private User getCurrentUser() {
+        return userService.getUser(SecurityUtil.getCurrentUserId());
     }
 }

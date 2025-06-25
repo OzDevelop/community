@@ -32,6 +32,7 @@ public enum ErrorCode {
     POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최소 5자 이상 작성되어야 합니다."),
     COMMENT_REQUIRED_CONTENT(400, "댓글은 공백일 수 없습니다."),
     COMMENT_MAXIMUM_CONTENT_LENGTH(400, "댓글은 최대 100자까지 작성할 수 있습니다."),
+    COMMENT_NOT_EXIST(404, "존재하지 않는 댓글입니다."),
 
     /**  Email Exception
      */

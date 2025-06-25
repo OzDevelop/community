@@ -9,6 +9,7 @@ import community.post.repository.entity.post.PostEntity;
 import community.post.repository.jpa.JpaPostRepository;
 import community.post.repository.jpa.JpaUserPostQueueRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,9 +46,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Post findById(Long id) {
+    public Optional<Post> findById(Long id) {
         PostEntity postEntity = jpaPostRepository.findById(id).orElseThrow();
-        return postEntity.toPost();
+        return Optional.ofNullable(postEntity.toPost());
     }
 
     @Override
