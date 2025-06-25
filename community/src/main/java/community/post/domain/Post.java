@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-
 @Getter
 @AllArgsConstructor
 @Builder
@@ -21,7 +20,6 @@ public class Post {
     private final Content content;
     private final IntegerRelationCounter likeCount;
     private PostPublicationState state;
-
 
     public Post(Long id, User user, PostContent content) {
         this(id, user, content, PostPublicationState.PUBLIC);
@@ -35,7 +33,6 @@ public class Post {
         if (author == null) {
             throw  new IllegalArgumentException();
         }
-
         this.id = id;
         this.author = author;
         this.content = content;
@@ -47,31 +44,28 @@ public class Post {
         return new Post(postId, author, new PostContent(content), state);
     }
 
-
-
-    // 좋아요
     public void like(User user) {
         if(this.author.equals(user)) {
             throw new SelfLikeNotAllowedException();
         }
         likeCount.increase();
-
     }
 
-    // 싫어요
-    public void unlike() {
+    public void unlike(User user) {
+        if(this.author.equals(user)) {
+            throw new SelfLikeNotAllowedException();
+        }
         likeCount.decrease();
     }
 
-    // Post 업데이트
     public void updatePost(User user, String updateContent, PostPublicationState state) {
         if(!this.author.equals(user)) {
             throw new UnauthorizedPostUpdateException();
         }
         this.state = state;
         this.content.updateContent(updateContent);
-
     }
+
     public int getLikeCount() {
         return likeCount.getCount();
     }

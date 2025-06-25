@@ -6,7 +6,6 @@ import community.common.domain.exception.postException.PostMinimumContentLengthE
 
 public class PostContent extends Content {
 
-
     private static final int MAX_LENGTH = 500;
     private static final int MIN_LENGTH = 5;
 
@@ -24,7 +23,6 @@ public class PostContent extends Content {
         this.datetimeInfo.updateEditDateTime();
     }
 
-    //🦊 contextText 검증
     protected void checkText(String contentText) {
         if (contentText == null || contentText.isEmpty())
             throw new PostContentRequiredException();

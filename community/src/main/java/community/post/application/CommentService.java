@@ -87,7 +87,7 @@ public class CommentService {
         User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(comment, user)) {
-            comment.unlike();
+            comment.unlike(user);
             commentRepository.save(comment);
             likeRepository.unlike(comment, user);
         }

@@ -94,7 +94,7 @@ public class PostService {
         User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(user, post)) {
-            post.unlike();
+            post.unlike(user);
             postRepository.save(post);
             likeRepository.unlike(post, user);
         }
