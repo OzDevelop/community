@@ -30,8 +30,8 @@ public class DataLoader {
             createUser(email);
         }
 
-        followUser(new FollowUserRequestDto(1L, 2L));
-        followUser(new FollowUserRequestDto(1L, 3L));
+        followUser(new FollowUserRequestDto(2L));
+        followUser(new FollowUserRequestDto(3L));
     }
 
     protected void createUser(String email) {

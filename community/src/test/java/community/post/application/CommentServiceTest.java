@@ -24,10 +24,10 @@ class CommentServiceTest {
     private final User user = userService.createUser(new CreateUserRequestDto("testUser", ""));
     private final User otherUser = userService.createUser(new CreateUserRequestDto("testTargetUser", ""));
 
-    CreatePostRequestDto postRequestDto = new CreatePostRequestDto(user.getId(), "this is test Content", PostPublicationState.PUBLIC);
+    CreatePostRequestDto postRequestDto = new CreatePostRequestDto("this is test Content", PostPublicationState.PUBLIC);
 
     private final Post post = postService.createPost(postRequestDto);
-    private final CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), "this is test Content", null );
+    private final CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(),"this is test Content", null );
 
     private final String commentContentText = "this is test Content";
 
@@ -47,7 +47,7 @@ class CommentServiceTest {
         Comment savedComment = commentService.createComment(dto);
 
         // when
-        UpdateCommentRequestDto updateCommentRequestDto = new UpdateCommentRequestDto(user.getId(), "updated Content");
+        UpdateCommentRequestDto updateCommentRequestDto = new UpdateCommentRequestDto("updated Content");
         Comment updatedComment = commentService.updateComment(savedComment.getId(), updateCommentRequestDto);
 
         assertEquals(savedComment.getId(), updatedComment.getId());
@@ -61,7 +61,7 @@ class CommentServiceTest {
         Comment savedComment = commentService.createComment(dto);
 
         // when
-        LikeRequestDto likeRequestDto = new LikeRequestDto(savedComment.getId(), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
         commentService.likeComment(likeRequestDto);
 
         // then
@@ -74,7 +74,7 @@ class CommentServiceTest {
         Comment savedComment = commentService.createComment(dto);
 
         // when
-        LikeRequestDto likeRequestDto = new LikeRequestDto(savedComment.getId(), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
 
         commentService.likeComment(likeRequestDto);
         commentService.unlikeComment(likeRequestDto);

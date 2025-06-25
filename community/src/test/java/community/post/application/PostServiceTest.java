@@ -31,7 +31,7 @@ public class PostServiceTest {
 
         user = userService.createUser(new CreateUserRequestDto("testUser", ""));
         otherUser = userService.createUser(new CreateUserRequestDto("testTargetUser", ""));
-        dto = new CreatePostRequestDto(user.getId(), "test Content", PostPublicationState.PUBLIC);
+        dto = new CreatePostRequestDto("test Content", PostPublicationState.PUBLIC);
     }
 
 
@@ -51,7 +51,7 @@ public class PostServiceTest {
         Post savedPost = postService.createPost(dto);
 
         // when
-        UpdatePostRequestDto updateDto = new UpdatePostRequestDto(savedPost.getAuthor().getId(),"updated-content", PostPublicationState.PRIVATE);
+        UpdatePostRequestDto updateDto = new UpdatePostRequestDto("updated-content", PostPublicationState.PRIVATE);
         Post updatedPost = postService.updatePost(savedPost.getId(), updateDto);
 
         // then
@@ -66,7 +66,7 @@ public class PostServiceTest {
         Post savedPost = postService.createPost(dto);
 
         // when
-        LikeRequestDto likeRequestDto = new LikeRequestDto((savedPost.getId()), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
         postService.likePost(likeRequestDto);
 
         // then
@@ -79,7 +79,7 @@ public class PostServiceTest {
         Post savedPost = postService.createPost(dto);
 
         // when
-        LikeRequestDto likeRequestDto = new LikeRequestDto(savedPost.getId(), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
         postService.likePost(likeRequestDto);
         postService.likePost(likeRequestDto);
 
@@ -91,7 +91,7 @@ public class PostServiceTest {
     void givenCreatedPostLiked_whenUnliked_thenReturnPostWithoutLike() {
         // given
         Post savedPost = postService.createPost(dto);
-        LikeRequestDto likeRequestDto = new LikeRequestDto(savedPost.getId(), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
         postService.likePost(likeRequestDto);
 
         // when
@@ -107,7 +107,7 @@ public class PostServiceTest {
         Post savedPost = postService.createPost(dto);
 
         // when
-        LikeRequestDto likeRequestDto = new LikeRequestDto(savedPost.getId(), otherUser.getId());
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId());
         postService.unlikePost(likeRequestDto);
 
         // then
