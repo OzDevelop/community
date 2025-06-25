@@ -29,6 +29,10 @@ public class UserException extends ExceptionBase {
         return new UserException(ErrorCode.USER_SELF_UNFOLLOW_NOT_ALLOWED);
     }
 
+    public static UserException userNotFoundException() {
+        return new UserException(ErrorCode.USER_NOT_EXISTED);
+    }
+
     public static UserException targetUserNotAlreadyFollowed() {
         return new UserException(ErrorCode.TARGET_USER_NOT_ALREADY_FOLLOWED);
     }

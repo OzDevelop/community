@@ -15,6 +15,7 @@ public enum ErrorCode {
     USER_NAME_REQUIRED(400 , "사용자 이름은 공백일 수 없습니다."),
     USER_SELF_FOLLOW_NOT_ALLOWED(400, "사용자는 자신을 팔로우할 수 없습니다."),
     USER_SELF_UNFOLLOW_NOT_ALLOWED(400, "사용자는 자신을 언팔로우할 수 없습니다."),
+    USER_NOT_EXISTED(400, "존재하지 않는 사용자입니다."),
 
     TARGET_USER_ALREADY_FOLLOWED(409, "대상 사용자를 이미 팔로우하고 있습니다."),
     TARGET_USER_NOT_ALREADY_FOLLOWED(409, "대상 사용자를 팔로우하고 있지 않습니다."),
