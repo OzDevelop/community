@@ -53,4 +53,15 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
                 .map(EmailVerificationEntity::isVerified)
                 .orElse(false);
     }
+
+    @Transactional
+    public void saveVerificationToken(String email, String token) {
+        createEmailVerification(Email.createEmail(email), token);
+    }
+
+    @Transactional
+    public void markEmailAsVerified(Email email) {
+        jpaEmailVerificationRepository.findByEmail(email.getEmailText())
+                .ifPresent(EmailVerificationEntity::verify);
+    }
 }
