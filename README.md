@@ -1,4 +1,4 @@
-# 🐝 Community - 소셜 피드 기반 커뮤니티 서비스
+# Community - 소셜 피드 기반 커뮤니티 서비스
 
 
 ### Community SNS / Social Feed Platform <br>
@@ -7,6 +7,13 @@
 Spring Boot 기반으로 구현된 SNS 피드 기능 중심의 커뮤니티 백엔드입니다.
 
 ###### 이 프로젝트는 사용자 관리, 팔로우, 게시물 작성 및 상호작용(댓글, 좋아요 등)을 중심으로 구성되어 있으며, Jenkins를 통해 CD까지 구현하였습니다.
+
+#### Notion 명세서
+
+- **Community 명세**: [Notion 명세서][googlelink]
+
+[googlelink]: https://ozdevelop.notion.site/Community-1ddd6d6b919180efabd5d5e5ddc24834?source=copy_link 
+
 ---
 
 ## 기술 스택 및 개발 환경
@@ -26,6 +33,7 @@ Spring Boot 기반으로 구현된 SNS 피드 기능 중심의 커뮤니티 백�
 **Testing**: JUnit 5, Mockito, RestAssured
 
 ---
+<img src="./Community 프로젝트_250816/community_v1.jpg" width="60%" height="50%" title="px(픽셀) 크기 설정" alt="CI/CD Flow"></img>
 
 ## 주요 기능
 
@@ -87,7 +95,7 @@ Spring Boot 기반으로 구현된 SNS 피드 기능 중심의 커뮤니티 백�
 ##  CI/CD 구성
 
 ### Jenkins Freestyle 기반
-<img src="/poooo/Downloads/개인 페이지 & 공유된 페이지/Community 프로젝트 명세 1ddd6d6b919180efabd5d5e5ddc24834.jpg" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="CI/CD Flow"></img>
+<img src="./Community 프로젝트_250816/image.png" width="60%" height="50%" title="px(픽셀) 크기 설정" alt="CI/CD Flow"></img>
 
 ```plaintext
 1. Github main 브랜치로 merge
@@ -97,6 +105,4 @@ Spring Boot 기반으로 구현된 SNS 피드 기능 중심의 커뮤니티 백�
 ```
 ---
 
-## Notion 명세서
 
-- **Community 명세**: 
