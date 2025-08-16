@@ -86,4 +86,4 @@ Spring Boot 기반으로 구현된 SNS 피드 기능 중심의 커뮤니티 백�
 
 ## Notion 명세서
 
-- **Community 명세**: [Community](https://ozdevelop.notion.site/Community-1ddd6d6b919180efabd5d5e5ddc24834?source=copy_link)
+- **Community 명세**: 

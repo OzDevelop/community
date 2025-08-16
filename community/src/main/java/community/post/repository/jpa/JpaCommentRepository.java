@@ -16,7 +16,7 @@ public interface JpaCommentRepository extends JpaRepository<CommentEntity, Long>
     @Query("DELETE FROM CommentEntity c WHERE c.post.id = :postId")
     void deleteAllByPostId(@Param("postId") Long postId);
 
-    @Query("SELECT new community.post.application.dto.GetCommentListResponseDto(c.id, c.content) "
+    @Query("SELECT new community.post.application.dto.GetCommentListResponseDto(c.id, c.content, c.parent.id) "
             + "FROM CommentEntity c "
             + "WHERE c.post.id = :postId" )
     List<GetCommentListResponseDto> getCommentList(@Param("postId") Long postId);

@@ -16,7 +16,7 @@ class CommentTest {
     private final User otherUser = new User(2L, new UserInfo("otherUser", ""));
 
     private final Post post = new Post(1L, user, new PostContent("test Content"));
-    private final Comment comment = new Comment(1L, post, user, "comment test");
+    private final Comment comment = new Comment(1L, post, user, "comment test", null);
 
     @Test
     void givenCommentWhenLikeThenIncreaseLikeCount1() {
