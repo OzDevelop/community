@@ -1,9 +1,12 @@
 package community.post.repository;
 
+import community.post.application.dto.GetPostContentResponseDto;
 import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakePostRepository implements PostRepository {
 
@@ -22,13 +25,18 @@ public class FakePostRepository implements PostRepository {
     }
 
     @Override
-    public Post findById(Long id) {
-        return store.get(id);
+    public Optional<Post> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
 
     @Override
     public void delete(Post post) {
+        store.remove(post.getId());
+    }
 
+    @Override
+    public List<GetPostContentResponseDto> findAllPostsByUserId(Long userId) {
+        return List.of();
     }
 }

@@ -1,4 +1,4 @@
 package community.post.application.dto;
 
-public record CreateCommentRequestDto(Long postId, Long authorId, String content, Long parentCommentId) {
+public record CreateCommentRequestDto(Long postId, String content, Long parentCommentId) {
 }

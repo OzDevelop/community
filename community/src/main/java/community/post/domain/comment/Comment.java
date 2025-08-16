@@ -17,7 +17,6 @@ import lombok.Getter;
 @Builder
 @Getter
 public class Comment {
-
     private final Long id;
     private final Post post;
     private final User author;
@@ -60,7 +59,11 @@ public class Comment {
         likeCount.increase();
     }
 
-    public void unlike() {
+    public void unlike(User user) {
+        if(author.equals(user)) {
+            throw new SelfLikeNotAllowedException();
+        }
+
         likeCount.decrease();
     }
 
@@ -79,6 +82,4 @@ public class Comment {
     public String getContentText() {
         return content.getContentText();
     }
-
-
 }

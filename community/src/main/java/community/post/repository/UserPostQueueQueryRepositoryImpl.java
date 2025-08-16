@@ -26,7 +26,7 @@ public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepos
     private final QLikeEntity likeEntity = QLikeEntity.likeEntity;
 
     @Override
-    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastContentId) {
+    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastContentId, String keyword) {
 
         return queryFactory
                 .select(
@@ -48,10 +48,11 @@ public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepos
                 .leftJoin(likeEntity).on(hasLike(userId))
                 .where(
                        userPostQueueEntity.userId.eq(userId),
-                       hasLastData(lastContentId)
+                       hasLastData(lastContentId),
+                        hasKeyword(keyword)
                 )
                 .orderBy(userPostQueueEntity.postId.desc())
-                .limit(20)
+                .limit(5)
                 .fetch();
     }
 
@@ -70,5 +71,14 @@ public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepos
                 .eq(likeEntity.id.targetId)
                 .and(likeEntity.id.targetType.eq("POST"))
                 .and(likeEntity.id.userId.eq(userId));
+    }
+
+    private BooleanExpression hasKeyword(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return null;
+        }
+
+        return postEntity.content.containsIgnoreCase(keyword)
+                .or(userEntity.name.containsIgnoreCase(keyword));
     }
 }

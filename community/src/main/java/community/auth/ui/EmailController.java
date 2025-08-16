@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,7 +29,9 @@ public class EmailController {
     }
 
     @GetMapping("/verify-token")
-    public Response<Void> verifyEmail(String email, String token) {
+    public Response<Void> verifyEmail(
+            @RequestParam String email,
+            @RequestParam String token) {
         emailService.verifyEmail(email, token);
         return Response.ok(null);
     }

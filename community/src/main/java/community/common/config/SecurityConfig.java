@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ) // 세션을 사용하지 않으므로 stateless 설정
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/auth/**", "/email/**", "/signup/**", "/login/**", "/user").permitAll()
+
                         .anyRequest().authenticated()
                 ) // /auth/**, /email/** 경로는 로그인 없이 접근 허용
                 .oauth2Login(oauth -> oauth

@@ -15,6 +15,7 @@ public enum ErrorCode {
     USER_NAME_REQUIRED(400 , "사용자 이름은 공백일 수 없습니다."),
     USER_SELF_FOLLOW_NOT_ALLOWED(400, "사용자는 자신을 팔로우할 수 없습니다."),
     USER_SELF_UNFOLLOW_NOT_ALLOWED(400, "사용자는 자신을 언팔로우할 수 없습니다."),
+    USER_NOT_EXISTED(400, "존재하지 않는 사용자입니다."),
 
     TARGET_USER_ALREADY_FOLLOWED(409, "대상 사용자를 이미 팔로우하고 있습니다."),
     TARGET_USER_NOT_ALREADY_FOLLOWED(409, "대상 사용자를 팔로우하고 있지 않습니다."),
@@ -31,6 +32,7 @@ public enum ErrorCode {
     POST_MINIMUM_CONTENT_LENGTH(400, "게시글은 최소 5자 이상 작성되어야 합니다."),
     COMMENT_REQUIRED_CONTENT(400, "댓글은 공백일 수 없습니다."),
     COMMENT_MAXIMUM_CONTENT_LENGTH(400, "댓글은 최대 100자까지 작성할 수 있습니다."),
+    COMMENT_NOT_EXIST(404, "존재하지 않는 댓글입니다."),
 
     /**  Email Exception
      */
@@ -50,6 +52,10 @@ public enum ErrorCode {
     PASSWORD_SEQUENCE(400, "연속된 숫자 또는 문자는 사용할 수 없습니다."),
     PASSWORD_LENGTH_INVALID(400, "비밀번호는 8자 이상 20자 이하로 입력해야 합니다."),
 
+    /** Auth Exception
+     */
+    UNAUTHORIZED(401, "로그인이 필요합니다."),
+    NOT_FOUND_AUTHORIZE_INFO(401, "인증 정보를 확인할 수 없습니다.")
     ;
 
     private final Integer code;

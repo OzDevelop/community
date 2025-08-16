@@ -1,5 +1,6 @@
 package community.user.application.service;
 
+import community.common.domain.exception.userException.UserException;
 import community.user.application.dto.CreateUserRequestDto;
 import community.user.application.dto.GetUserResponseDto;
 import community.user.application.interfaces.UserRepository;
@@ -27,7 +28,9 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id);
+        User user = userRepository.findById(id);
+        if (user == null) throw UserException.userNotFoundException();
+        return user;
     }
 
     public GetUserResponseDto getUserProfile(Long id) {

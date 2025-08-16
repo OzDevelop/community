@@ -1,7 +1,9 @@
 package community.post.application;
 
+import community.common.SecurityUtil;
 import community.common.domain.exception.postException.PostNotExistException;
 import community.post.application.dto.CreatePostRequestDto;
+import community.post.application.dto.GetPostContentResponseDto;
 import community.post.application.dto.LikeRequestDto;
 import community.post.application.dto.UpdatePostRequestDto;
 import community.post.application.interfaces.CommentRepository;
@@ -10,11 +12,12 @@ import community.post.application.interfaces.PostRepository;
 import community.post.domain.Post;
 import community.user.domain.User;
 import community.user.application.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostService {
-
     private final UserService userService;
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
@@ -28,9 +31,9 @@ public class PostService {
         this.commentRepository = commentRepository;
     }
 
-
     public Post createPost(CreatePostRequestDto dto) {
-        User author = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+        User author = userService.getUser(currentUserId);
 
         Post post = Post.createPost(null, author, dto.content(), dto.state());
 
@@ -38,32 +41,35 @@ public class PostService {
     }
 
     public Post updatePost(Long postId, UpdatePostRequestDto dto) {
-        Post post = postRepository.findById(postId);
-        User user = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+        Post post = postRepository.findById(postId).orElseThrow(PostNotExistException::new);
+        User user = userService.getUser(currentUserId);
 
         post.updatePost(user, dto.content(), dto.state());
 
         return postRepository.save(post);
     }
 
+    @Transactional
     public void deletePost(Long postId) {
-        Post post = postRepository.findById(postId);
-
-        if (post == null) {
-            throw new PostNotExistException();
-        }
+        Post post = postRepository.findById(postId).orElseThrow(PostNotExistException::new);
 
         commentRepository.deleteAllByPostId(postId);
         likeRepository.deleteAllByPostId(postId);
 
         postRepository.delete(post);
+    }
 
-
+    public List<GetPostContentResponseDto> getUserPostList(Long userId) {
+        return postRepository.findAllPostsByUserId(userId);
     }
 
     public void likePost(LikeRequestDto dto) {
-        Post post = postRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+        Post post = postRepository.findById(dto.targetId()).orElseThrow(PostNotExistException::new);
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(user, post)) {
             return;
@@ -76,19 +82,19 @@ public class PostService {
 
 
     public void unlikePost(LikeRequestDto dto) {
-        Post post = postRepository.findById(dto.targetId());
-        User user = userService.getUser(dto.userId());
+        Long currentUserId = SecurityUtil.getCurrentUserId();
+
+        Post post = postRepository.findById(dto.targetId()).orElseThrow(PostNotExistException::new);
+        User user = userService.getUser(currentUserId);
 
         if(likeRepository.checkLike(user, post)) {
-            post.unlike();
+            post.unlike(user);
             postRepository.save(post);
             likeRepository.unlike(post, user);
         }
     }
 
     public Post getPost(Long id) {
-        return postRepository.findById(id);
+        return postRepository.findById(id).orElseThrow(PostNotExistException::new);
     }
-
-
 }

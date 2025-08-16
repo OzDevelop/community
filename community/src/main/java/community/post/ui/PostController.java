@@ -29,8 +29,6 @@ public class PostController {
         return Response.ok(post.getId());
     }
 
-    //TODO - update, delete, like, unlike
-
     // update
     // 동작 확인 O
     @PatchMapping("/{postId}")
