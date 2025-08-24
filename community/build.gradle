@@ -31,14 +31,15 @@ dependencies {
 
     // Querydsl 추가
     // query dsl 버전 명시해야 jakarta사용 (javax X)
-    implementation 'com.querydsl:querydsl-apt:5.0.0'
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    implementation 'com.querydsl:querydsl-core:5.0.0'
+    // Querydsl JPA (필수)
+    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
 
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-
+    // Annotation Processing (QClass 생성)
+    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
 
     // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -73,6 +74,13 @@ def generated = 'src/main/generated'
 ///// querydsl QClass 파일 생성 위치를 지정
 tasks.withType(JavaCompile) {
     options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+task compileQuerydsl(type: JavaCompile) {
+    source = sourceSets.main.java
+    classpath = sourceSets.main.compileClasspath
+    destinationDirectory.set(file('src/main/generated'))
+    options.annotationProcessorPath = configurations.annotationProcessor
 }
 
 ///// java source set 에 querydsl QClass 위치 추가
