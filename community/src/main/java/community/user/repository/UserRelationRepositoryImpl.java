@@ -1,8 +1,12 @@
 package community.user.repository;
 
+import static community.user.repository.entity.QUserRelationEntity.userRelationEntity;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import community.post.application.interfaces.UserPostQueueCommandRepository;
 import community.user.application.interfaces.UserRelationRepository;
 import community.user.domain.User;
+import community.user.repository.entity.QUserRelationEntity;
 import community.user.repository.entity.UserEntity;
 import community.user.repository.entity.UserRelationEntity;
 import community.user.repository.entity.UserRelationIdEntity;
@@ -17,9 +21,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserRelationRepositoryImpl implements UserRelationRepository {
 
+    private final JPAQueryFactory queryFactory;
+
     private final JpaUserRelationRepository jpaUserRelationRepository;
     private final JpaUserRepository jpaUserRepository;
     private final UserPostQueueCommandRepository commandRepository;
+
+    @Override
+    public List<Long> findFollowers(Long userId) {
+        return queryFactory
+                .select(userRelationEntity.followingUserId)
+                .from(userRelationEntity)
+                .where(userRelationEntity.followerUserId.eq(userId))
+                .fetch();
+    }
 
     @Override
     public boolean isAlreadyFollow(User user, User targetUser) {
